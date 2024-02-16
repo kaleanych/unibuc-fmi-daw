@@ -4,13 +4,15 @@
 namespace wfm;
 
 
+use Exception;
+
 class Router
 {
 
     protected static array $routes = [];
     protected static array $route = [];
 
-    public static function add($regexp, $route = [])
+    public static function add($regexp, $route = []): void
     {
         self::$routes[$regexp] = $route;
     }
@@ -25,12 +27,40 @@ class Router
         return self::$route;
     }
 
-    public static function dispatch($url)
+    protected static function removeQueryString($url): string
     {
+        if ($url) {
+            $params = explode('&', $url, 2);
+            if (false === str_contains($params[0], '=')) {
+                return rtrim($params[0], '/');
+            }
+        }
+        return '';
+    }
+
+    /**
+     * @throws Exception
+     */
+    public static function dispatch($url): void
+    {
+        $url = self::removeQueryString($url);
         if (self::matchRoute($url)) {
-            echo 'OK';
+
+            $controller = 'app\controllers\\' . self::$route['admin_prefix'] . self::$route['controller'] . 'Controller';
+            if (class_exists($controller)) {
+                $controllerObject = new $controller(self::$route);
+                $action = self::lowerCamelCase(self::$route['action'] . 'Action');
+                if (method_exists($controllerObject, $action)) {
+                    $controllerObject->$action();
+                } else {
+                    throw new Exception("Method {$controller}::{$action} not found", 404);
+                }
+            } else {
+                throw new Exception("Controller {$controller} not found", 404);
+            }
+
         } else {
-            echo 'NO';
+            throw new Exception("Page not found", 404);
         }
     }
 
@@ -49,11 +79,10 @@ class Router
                 if (!isset($route['admin_prefix'])) {
                     $route['admin_prefix'] = '';
                 } else {
-                    $route['admin_prefix'] = '\\';
+                    $route['admin_prefix'] .= '\\';
                 }
-                debug($route);
                 $route['controller'] = self::upperCamelCase($route['controller']);
-                debug($route);
+                self::$route = $route;
                 return true;
             }
         }
