@@ -17,7 +17,7 @@ use wfm\View;
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"
           integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
     <link rel="stylesheet" href="<?= SITE_URL ?>/assets/css/magnific-popup.css">
-    <link rel="stylesheet" href="<?= SITE_URL ?>/assets/css/main.css">
+    <link rel="stylesheet" href="<?= SITE_URL ?>/assets/css/main.css?123">
     <link rel="icon" type="image/png" sizes="32x32" href="<?= SITE_URL ?>/assets/img/favicon.png">
     <?= $this->getMeta() ?>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
