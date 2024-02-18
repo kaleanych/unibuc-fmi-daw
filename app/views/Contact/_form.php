@@ -46,7 +46,7 @@
                 </div>
             </div>
             <hr>
-            <div class="g-recaptcha" data-sitekey="6Le7bHcpAAAAAAGrAcPZsTbbBy-X2SeEFcD1sMP6"></div>
+            <div class="g-recaptcha" data-sitekey="6LcydncpAAAAAOryyTyPn2CPjOmkPGFu1J3iwe38"></div>
             <hr>
             <button type="submit" class="btn btn-primary" name="submit" value="send">Send</button>
         </div>
