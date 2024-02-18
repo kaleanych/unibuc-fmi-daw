@@ -17,7 +17,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="<?= SITE_URL ?>/adminlte/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="<?= SITE_URL ?>/adminlte/plugins/select2/css/select2.min.css">
-    <link rel="stylesheet" href="<?= SITE_URL ?>/adminlte/main.css">
+    <link rel="stylesheet" href="<?= SITE_URL ?>/adminlte/main.css?123">
 
     <script src="<?= SITE_URL ?>/adminlte/ckeditor/ckeditor.js"></script>
     <script src="<?= SITE_URL ?>/adminlte/ckfinder/ckfinder.js"></script>
