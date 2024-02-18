@@ -19,7 +19,7 @@ class ContactController extends AppController
             if (isset($_POST['g-recaptcha-response'])) {
                 $captcha = $_POST['g-recaptcha-response'];
             }
-            $secretKey = "6Le7bHcpAAAAAIczHvnnjKgbzwY1zYaZtY90CbLA";
+            $secretKey = App::$app->getProperty("captcha_secret_key");
             $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($secretKey) .  '&response=' . urlencode($captcha);
             $response = file_get_contents($url);
 

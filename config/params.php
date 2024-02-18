@@ -13,4 +13,5 @@ return [
     'smtp_password' => $_ENV['smtp_password'],
     'smtp_secure' => $_ENV['smtp_secure'],
     'smtp_from_email' => $_ENV['smtp_from_email'],
+    'captcha_secret_key' => $_ENV['CAPTCHA_SECRET_KEY'],
 ];
