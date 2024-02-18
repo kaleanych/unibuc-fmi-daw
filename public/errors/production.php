@@ -6,8 +6,8 @@
 </head>
 <body>
 
-<h1>ERRORs</h1>
-<p><a href="<?=PATH;?>">Go back to Home</a></p>
+<h1>Error!</h1>
+<p><a href="<?=SITE_URL;?>">Go back to Home</a></p>
 
 </body>
 </html>

@@ -11,7 +11,7 @@ class Registry
 
     protected static array $properties = [];
 
-    public function setProperty($name, $value): void
+    public function setProperty($name, $value)
     {
         self::$properties[$name] = $value;
     }

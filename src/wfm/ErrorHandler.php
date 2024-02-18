@@ -9,6 +9,7 @@ class ErrorHandler
 
     public function __construct()
     {
+        // https://habr.com/ru/post/161483/
         if (DEBUG) {
             error_reporting(-1);
         } else {
@@ -20,13 +21,13 @@ class ErrorHandler
         register_shutdown_function([$this, 'fatalErrorHandler']);
     }
 
-    public function errorHandler($errno, $errstr, $errfile, $errline): void
+    public function errorHandler($errno, $errstr, $errfile, $errline)
     {
         $this->logError($errstr, $errfile, $errline);
         $this->displayError($errno, $errstr, $errfile, $errline);
     }
 
-    public function fatalErrorHandler(): void
+    public function fatalErrorHandler()
     {
         $error = error_get_last();
         if (!empty($error) && $error['type'] & (E_ERROR | E_PARSE | E_COMPILE_ERROR | E_CORE_ERROR)) {
@@ -38,17 +39,17 @@ class ErrorHandler
         }
     }
 
-    public function exceptionHandler(\Throwable $e): void
+    public function exceptionHandler(\Throwable $e)
     {
         $this->logError($e->getMessage(), $e->getFile(), $e->getLine());
         $this->displayError('Exception', $e->getMessage(), $e->getFile(), $e->getLine(), $e->getCode());
     }
 
-    protected function logError($message = '', $file = '', $line = ''): void
+    protected function logError($message = '', $file = '', $line = '')
     {
         file_put_contents(
             LOGS . '/errors.log',
-            "[" . date('Y-m-d H:i:s') . "] Error text: {$message} | File: {$file} | Line: {$line}\n=================\n",
+            "[" . date('Y-m-d H:i:s') . "] Text eroare: {$message} | Fisier: {$file} | Linie: {$line}\n=================\n",
             FILE_APPEND);
     }
 

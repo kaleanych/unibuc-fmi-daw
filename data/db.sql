@@ -1,11 +1,13 @@
 CREATE TABLE users
 (
     id       INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    email    VARCHAR(50)            NOT NULL,
-    password VARCHAR(255)           NOT NULL,
-    name     VARCHAR(255)           NOT NULL,
-    address  VARCHAR(255)           NOT NULL,
-    role     enum ('user', 'admin') NOT NULL DEFAULT 'user',
+    email    VARCHAR(50)                         NOT NULL,
+    password VARCHAR(255)                        NOT NULL,
+    name     VARCHAR(255)                        NOT NULL,
+    address  VARCHAR(255)                        NOT NULL,
+    role     enum ('user', 'librarian', 'admin') NOT NULL DEFAULT 'user',
+    status   TINYINT(4)                          NOT NULL DEFAULT 0,
+    hash     VARCHAR(255),
     UNIQUE (email)
 );
 
@@ -38,7 +40,7 @@ CREATE TABLE author_descriptions
 CREATE TABLE categories
 (
     id        INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    parent_id INT UNSIGNED NOT NULL,
+    parent_id INT UNSIGNED,
     slug      VARCHAR(255) DEFAULT NULL,
     INDEX idx_slug (slug),
     FOREIGN KEY (parent_id) REFERENCES categories (id)
@@ -80,6 +82,7 @@ CREATE TABLE items
     id          INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     author_id   INT UNSIGNED,
     category_id INT UNSIGNED,
+    isbn        VARCHAR(13)           DEFAULT NULL,
     slug        VARCHAR(255)          DEFAULT NULL,
     type        ENUM ('book', 'article', 'CD', 'other'),
     price       DOUBLE       NOT NULL DEFAULT 0,
@@ -88,6 +91,7 @@ CREATE TABLE items
     hit         TINYINT(4)   NOT NULL DEFAULT 0,
     img         VARCHAR(255) NOT NULL DEFAULT 'uploads/no_image.jpg',
     is_download TINYINT(4)   NOT NULL DEFAULT 0,
+    qty         INT UNSIGNED NOT NULL,
 
     created_at  TIMESTAMP             DEFAULT CURRENT_TIMESTAMP,
     created_by  INT,
@@ -106,7 +110,7 @@ CREATE TABLE item_descriptions
     language_id INT UNSIGNED NOT NULL,
     title       VARCHAR(255) NOT NULL,
     content     TEXT,
-    excerpt     VARCHAR(255) NOT NULL,
+    excerpt     VARCHAR(255),
     keywords    VARCHAR(255) DEFAULT NULL,
     description VARCHAR(255) DEFAULT NULL,
     PRIMARY KEY (item_id, language_id),
@@ -122,6 +126,15 @@ CREATE TABLE item_gallery
     FOREIGN KEY (item_id) REFERENCES items (id)
 );
 
+CREATE TABLE item_downloads
+(
+    item_id     INT UNSIGNED NOT NULL,
+    download_id INT UNSIGNED NOT NULL,
+    PRIMARY KEY (item_id, download_id),
+    FOREIGN KEY (item_id) REFERENCES items (id),
+    FOREIGN KEY (download_id) REFERENCES downloads (id)
+);
+
 CREATE TABLE slider
 (
     id  INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -132,27 +145,45 @@ CREATE TABLE orders
 (
     id         INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     user_id    INT UNSIGNED,
-    status     TINYINT(4) NOT NULL DEFAULT 0,
+    status     TINYINT(4) DEFAULT 0,
     note       TEXT,
     created_at TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    total      DOUBLE     NOT NULL,
+    total      DOUBLE,
     qty        INT UNSIGNED        DEFAULT NULL,
     FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
 CREATE TABLE order_items
 (
-    id       INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    order_id INT UNSIGNED NOT NULL,
-    item_id  INT UNSIGNED NOT NULL,
-    title    VARCHAR(255) NOT NULL,
-    slug     VARCHAR(255) NOT NULL,
-    qty      INT UNSIGNED NOT NULL,
-    price    DOUBLE       NOT NULL,
-    sum      DOUBLE       NOT NULL,
+    id          INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    order_id    INT UNSIGNED NOT NULL,
+    item_id     INT UNSIGNED NOT NULL,
+    borrow_date TIMESTAMP,
+    return_date TIMESTAMP,
+    returned    TINYINT(1),
+    returned_at TIMESTAMP,
+    title       VARCHAR(255),
+    slug        VARCHAR(255),
+    qty         INT UNSIGNED,
+    price       DOUBLE,
+    sum         DOUBLE,
     FOREIGN KEY (order_id) REFERENCES orders (id),
     FOREIGN KEY (item_id) REFERENCES items (id)
+);
+
+CREATE TABLE order_downloads
+(
+    id          INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    order_id    INT UNSIGNED        NOT NULL,
+    user_id     INT UNSIGNED        NOT NULL,
+    item_id     INT UNSIGNED        NOT NULL,
+    download_id INT UNSIGNED        NOT NULL,
+    status      tinyint(3) UNSIGNED NOT NULL DEFAULT '0',
+    FOREIGN KEY (order_id) REFERENCES orders (id),
+    FOREIGN KEY (user_id) REFERENCES users (id),
+    FOREIGN KEY (item_id) REFERENCES items (id),
+    FOREIGN KEY (download_id) REFERENCES downloads (id)
 );
 
 CREATE TABLE payments
@@ -191,5 +222,17 @@ CREATE TABLE contact
     email      VARCHAR(50)  NOT NULL,
     title      VARCHAR(255) NOT NULL,
     message    TEXT         NOT NULL,
-    created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP
+    user_id    INT UNSIGNED,
+    created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users (id)
+);
+
+CREATE TABLE analytics
+(
+    id         INT AUTO_INCREMENT PRIMARY KEY,
+    ip_address VARCHAR(50),
+    uri        TEXT,
+    visit_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    user_id    INT UNSIGNED,
+    FOREIGN KEY (user_id) REFERENCES users (id)
 );

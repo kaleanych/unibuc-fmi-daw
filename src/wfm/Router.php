@@ -4,7 +4,7 @@
 namespace wfm;
 
 
-use Exception;
+use League\Flysystem\Exception;
 
 class Router
 {
@@ -12,7 +12,7 @@ class Router
     protected static array $routes = [];
     protected static array $route = [];
 
-    public static function add($regexp, $route = []): void
+    public static function add($regexp, $route = [])
     {
         self::$routes[$regexp] = $route;
     }
@@ -39,28 +39,41 @@ class Router
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public static function dispatch($url): void
     {
         $url = self::removeQueryString($url);
-        if (self::matchRoute($url)) {
+        try {
+            if (self::matchRoute($url)) {
+                if (!empty(self::$route['lang'])) {
+                    App::$app->setProperty('lang', self::$route['lang']);
+                }
 
-            $controller = 'app\controllers\\' . self::$route['admin_prefix'] . self::$route['controller'] . 'Controller';
-            if (class_exists($controller)) {
-                $controllerObject = new $controller(self::$route);
-                $action = self::lowerCamelCase(self::$route['action'] . 'Action');
-                if (method_exists($controllerObject, $action)) {
-                    $controllerObject->$action();
+                $controller = 'app\controllers\\' . self::$route['admin_prefix'] . self::$route['controller'] . 'Controller';
+                if (class_exists($controller)) {
+
+                    /** @var Controller $controllerObject */
+                    $controllerObject = new $controller(self::$route);
+
+                    $controllerObject->getModel();
+
+                    $action = self::lowerCamelCase(self::$route['action'] . 'Action');
+                    if (method_exists($controllerObject, $action)) {
+                        $controllerObject->$action();
+                        $controllerObject->getView();
+                    } else {
+                        throw new \Exception("Method {$controller}::{$action} not found", 404);
+                    }
                 } else {
-                    throw new Exception("Method {$controller}::{$action} not found", 404);
+                    throw new \Exception("Controller {$controller} not found", 404);
                 }
             } else {
-                throw new Exception("Controller {$controller} not found", 404);
+                throw new \Exception("Page not found", 404);
             }
-
-        } else {
-            throw new Exception("Page not found", 404);
+        } catch (\Exception $e) {
+            die($e->getMessage());
+            redirect(base_url() . 'main/error404');
         }
     }
 
