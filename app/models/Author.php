@@ -49,7 +49,7 @@ class Author extends AppModel
         if (isset($_GET['sort']) && array_key_exists($_GET['sort'], $sort_values)) {
             $order_by = $sort_values[$_GET['sort']];
         }
-        return R::getAll("SELECT i.*, id.* FROM items i JOIN item_descriptions id on i.id = id.item_id WHERE i.status = 1 AND i.author_id IN ($ids) AND id.language_id = ? $order_by LIMIT $start, $per_page", [$lang['id']]);
+        return R::getAll(Item::addAuthorSQL("SELECT i.*, id.*, %s FROM items i JOIN item_descriptions id on i.id = id.item_id %s WHERE i.status = 1 AND i.author_id IN ($ids) AND id.language_id = ? $order_by LIMIT $start, $per_page"), [$lang['id'], $lang['id']]);
     }
 
     public function countItems($ids): int

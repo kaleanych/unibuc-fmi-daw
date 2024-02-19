@@ -56,5 +56,7 @@ return [
     'tpl_get_a_book' => 'Get a Book',
     'tpl_open_the_book' => 'Open the Book',
     'tpl_read_the_book' => 'Read the Book',
-    'tpl_count_books' => '%d books',
+    'tpl_count_books' => '%s books',
+
+    'tpl_book_by' => 'by',
 ];

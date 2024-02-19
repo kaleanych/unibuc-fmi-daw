@@ -8,8 +8,12 @@
                 <a href="item/<?= $item['slug'] ?>"><img src="<?= SITE_URL . $item['img'] ?>" alt=""></a>
             </div>
             <div class="item-details">
-                <h4><a href="item/<?= $item['slug'] ?>"><?= $item['title'] ?></a></h4>
+                    <h4><a href="item/<?= $item['slug'] ?>"><?= $item['title'] ?></a></h4>
+
                 <p><?= $item['excerpt'] ?></p>
+                <small>
+                    <?php __('tpl_book_by');?> <a href="author/<?= $item['author_slug'] ?>"><?= $item['author_name'];?></a>
+                </small>
                 <div class="item-bottom-details d-flex justify-content-between">
 
                     <div class="item-price">

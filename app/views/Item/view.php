@@ -19,7 +19,9 @@ use wfm\View;
         <div class="col-md-4 order-md-2">
 
             <h1><?= $item['title'] ?></h1>
-
+            <p>
+                <?php __('tpl_book_by');?> <a href="author/<?= $item['author_slug'] ?>"><?= $item['author_name'];?></a>
+            </p>
             <ul class="list-unstyled">
 
             </ul>
