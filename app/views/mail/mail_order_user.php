@@ -14,8 +14,8 @@
     <tr style="background: #f9f9f9;">
         <th style="padding: 8px; border: 1px solid #ddd;"><?php __('tpl_cart_item'); ?></th>
         <th style="padding: 8px; border: 1px solid #ddd;"><?php __('tpl_cart_qty'); ?></th>
-        <th style="padding: 8px; border: 1px solid #ddd;"><?php __('tpl_cart_price'); ?></th>
-        <th style="padding: 8px; border: 1px solid #ddd;"><?php __('tpl_cart_sum'); ?></th>
+        <th style="padding: 8px; border: 1px solid #ddd;"><?php //__('tpl_cart_price'); ?></th>
+        <th style="padding: 8px; border: 1px solid #ddd;"><?php //__('tpl_cart_sum'); ?></th>
     </tr>
     </thead>
     <tbody>
@@ -23,18 +23,20 @@
         <tr>
             <td style="padding: 8px; border: 1px solid #ddd;"><?=$item['title'] ?></td>
             <td style="padding: 8px; border: 1px solid #ddd;"><?=$item['qty'] ?></td>
-            <td style="padding: 8px; border: 1px solid #ddd;"><?=$item['price'] ?></td>
-            <td style="padding: 8px; border: 1px solid #ddd;"><?=$item['price'] * $item['qty'] ?></td>
+            <td style="padding: 8px; border: 1px solid #ddd;"><?php //=$item['price'] ?></td>
+            <td style="padding: 8px; border: 1px solid #ddd;"><?php //=$item['price'] * $item['qty'] ?></td>
         </tr>
     <?php endforeach;?>
     <tr>
-        <td colspan="3" style="padding: 8px; border: 1px solid #ddd;"><?php __('tpl_cart_total_qty'); ?></td>
+        <td colspan="3" style="padding: 8px; border: 1px solid #ddd;"><?php //__('tpl_cart_total_qty'); ?></td>
         <td style="padding: 8px; border: 1px solid #ddd;"><?=$_SESSION['cart.qty'] ?></td>
     </tr>
+    <?php if (0):?>
     <tr>
-        <td colspan="3" style="padding: 8px; border: 1px solid #ddd;"><?php __('tpl_cart_sum'); ?></td>
+        <td colspan="3" style="padding: 8px; border: 1px solid #ddd;"><?php //__('tpl_cart_sum'); ?></td>
         <td style="padding: 8px; border: 1px solid #ddd;"><?= $_SESSION['cart.sum'] ?></td>
     </tr>
+    <?php endif;?>
     </tbody>
 </table>
 

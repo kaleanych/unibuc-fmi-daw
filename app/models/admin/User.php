@@ -12,11 +12,12 @@ class User extends \app\models\User
         'password' => '',
         'name' => '',
         'address' => '',
+        'phone_number' => '',
         'role' => '',
     ];
 
     public array $rules = [
-        'required' => ['email', 'password', 'name', 'address', 'role',],
+        'required' => ['email', 'password', 'name', 'address', 'phone_number', 'role',],
         'email' => ['email',],
         'lengthMin' => [
             ['password', 6],
@@ -29,6 +30,7 @@ class User extends \app\models\User
         'password' => 'Password',
         'name' => 'Name',
         'address' => 'Address',
+        'phone_number' => 'Phone',
         'role' => 'Role',
     ];
 
@@ -37,12 +39,12 @@ class User extends \app\models\User
         return (isset($_SESSION['user']) && $_SESSION['user']['role'] == 'admin');
     }
 
-    public function get_users($start, $perpage): array
+    public function getUsers($start, $per_page): array
     {
-        return R::findAll('users', "LIMIT $start, $perpage");
+        return R::findAll('users', "LIMIT $start, $per_page");
     }
 
-    public function get_user($id): array
+    public function getUser($id): array
     {
         return R::getRow("SELECT * FROM users WHERE id = ?", [$id]);
     }

@@ -77,9 +77,9 @@ class User extends AppModel
         return R::count('orders', 'user_id = ?', [$user_id]);
     }
 
-    public function getUserOrders($start, $perpage, $user_id): array
+    public function getUserOrders($start, $per_page, $user_id): array
     {
-        return R::getAll("SELECT * FROM orders WHERE user_id = ? ORDER BY id DESC LIMIT $start, $perpage", [$user_id]);
+        return R::getAll("SELECT * FROM orders WHERE user_id = ? ORDER BY id DESC LIMIT $start, $per_page", [$user_id]);
     }
 
     public function getUserOrder($id): array
@@ -92,9 +92,9 @@ class User extends AppModel
         return R::count('order_downloads', 'user_id = ? AND status = 1', [$_SESSION['user']['id']]);
     }
 
-    public function getUserFiles($start, $perpage, $lang): array
+    public function getUserFiles($start, $per_page, $lang): array
     {
-        return R::getAll("SELECT od.*, d.*, dd.* FROM order_downloads od JOIN downloads d on d.id = od.download_id JOIN download_descriptions dd on d.id = dd.download_id WHERE od.user_id = ? AND od.status = 1 AND  dd.language_id = ? LIMIT $start, $perpage", [$_SESSION['user']['id'], $lang['id']]);
+        return R::getAll("SELECT od.*, d.*, dd.* FROM order_downloads od JOIN downloads d on d.id = od.download_id JOIN download_descriptions dd on d.id = dd.download_id WHERE od.user_id = ? AND od.status = 1 AND  dd.language_id = ? LIMIT $start, $per_page", [$_SESSION['user']['id'], $lang['id']]);
     }
 
     public function getUserFile($id, $lang): array

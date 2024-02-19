@@ -9,6 +9,7 @@
         <ol class="breadcrumb bg-light p-2">
             <li class="breadcrumb-item"><a href="<?= base_url() ?>"><i class="fas fa-home"></i></a></li>
             <li class="breadcrumb-item"><?php __('search_index_search_title'); ?></li>
+            <li class="breadcrumb-item"><?=h($s); ?></li>
         </ol>
     </nav>
 </div>
@@ -20,7 +21,7 @@
             <h1 class="section-title"><?php __('search_index_search_title'); ?></h1>
 
             <h4><?php echo ___('search_index_search_query') . h($s); ?></h4>
-
+            <hr>
             <div class="row">
                 <?php if (!empty($items)): ?>
                     <?php $this->getPart('parts/items_loop', compact('items')); ?>

@@ -19,7 +19,7 @@ class UserController extends AppController
         $pagination = new Pagination($page, $per_page, $total);
         $start = $pagination->getStart();
 
-        $users = $this->model->get_users($start, $per_page);
+        $users = $this->model->getUsers($start, $per_page);
         $title = 'Users';
         $this->setMeta("Admin :: {$title}");
         $this->set(compact('title', 'users', 'pagination', 'total'));
@@ -28,18 +28,18 @@ class UserController extends AppController
     public function viewAction()
     {
         $id = get('id');
-        $user = $this->model->get_user($id);
+        $user = $this->model->getUser($id);
         if (!$user) {
             throw new \Exception('User not found', 404);
         }
 
         $page = get('page');
         $per_page = 1;
-        $total = $this->model->get_count_orders($id);
+        $total = $this->model->countOrders($id);
         $pagination = new Pagination($page, $per_page, $total);
         $start = $pagination->getStart();
 
-        $orders = $this->model->get_user_orders($start, $per_page, $id);
+        $orders = $this->model->getUserOrders($start, $per_page, $id);
         $title = 'User profile';
         $this->setMeta("Admin :: {$title}");
         $this->set(compact('title', 'user', 'pagination', 'total', 'orders'));
@@ -57,17 +57,15 @@ class UserController extends AppController
                 $this->model->attributes['password'] = password_hash($this->model->attributes['password'], PASSWORD_DEFAULT);
                 if ($id = $this->model->save('users')) {
                     $_SESSION['success'] = 'User added';
+                    if ($request['submit'] == 'save') {
+                        redirect("/admin/user/edit?id={$id}");
+                    }
                 } else {
                     $_SESSION['errors'] = 'Error!';
                 }
             }
 
-            if ($request['submit'] == 'save_add') {
-                redirect();
-            } else {
-                redirect("/admin/user/edit?id={$id}");
-            }
-
+            redirect();
         }
         $title = 'New user';
         $this->setMeta("Admin :: {$title}");
@@ -77,7 +75,7 @@ class UserController extends AppController
     public function editAction()
     {
         $id = get('id');
-        $user = $this->model->get_user($id);
+        $user = $this->model->getUser($id);
         if (!$user) {
             throw new \Exception('User not found', 404);
         }
@@ -97,15 +95,15 @@ class UserController extends AppController
                 }
                 if ($this->model->update('users', $id)) {
                     $_SESSION['success'] = 'User saved';
+                    if ($request['submit'] == 'save_add') {
+                        redirect("/admin/user/add");
+                    }
                 } else {
                     $_SESSION['errors'] = 'Error!';
                 }
             }
-            if ($request['submit'] == 'save_add') {
-                redirect("/admin/user/add");
-            } else {
-                redirect();
-            }
+
+            redirect();
         }
 
         $title = 'Edit user';

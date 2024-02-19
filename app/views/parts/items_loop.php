@@ -11,11 +11,16 @@
                 <h4><a href="item/<?= $item['slug'] ?>"><?= $item['title'] ?></a></h4>
                 <p><?= $item['excerpt'] ?></p>
                 <div class="item-bottom-details d-flex justify-content-between">
+
                     <div class="item-price">
+                        <?php if (0):?>
                         <?php if ($item['old_price']): ?>
                             <small><?= $item['old_price'] ?></small>
                         <?php endif; ?>
-                        <?= $item['price'] ?></div>
+                        <?= $item['price'] ?>
+                        <?php endif;?>
+                    </div>
+
                     <div class="item-links">
                         <a class="add-to-cart" href="cart/add?id=<?= $item['id'] ?>" data-id="<?= $item['id'] ?>"><?= get_cart_icon($item['id']); ?></a>
 

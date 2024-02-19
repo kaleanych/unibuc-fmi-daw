@@ -15,7 +15,13 @@ class Breadcrumbs extends AppModel
         $breadcrumbs_array = self::getParts($categories, $category_id);
         $breadcrumbs = "<li class='breadcrumb-item'><a href='" . base_url() . "'>" . ___('tpl_home_breadcrumbs') . "</a></li>";
         if ($breadcrumbs_array) {
+            $i=1;
+            $count = count($breadcrumbs_array);
             foreach ($breadcrumbs_array as $slug => $title) {
+                if (!$name && ($i++ == $count)) {
+                    $name = $title;
+                    break;
+                }
                 $breadcrumbs .= "<li class='breadcrumb-item'><a href='category/{$slug}'>{$title}</a></li>";
             }
         }
@@ -40,6 +46,19 @@ class Breadcrumbs extends AppModel
             }
         }
         return array_reverse($breadcrumbs, true);
+    }
+
+    public static function getAuthorBreadcrumbs($name = '', $is_for_author = false): string
+    {
+        $breadcrumbs = "<li class='breadcrumb-item'><a href='" . base_url() . "'>" . ___('tpl_home_breadcrumbs') . "</a></li>";
+
+        if ($is_for_author) {
+            $breadcrumbs .= "<li class='breadcrumb-item'><a href='authors'>".___('tpl_authors')."</a></li>";
+        }
+        if ($name) {
+            $breadcrumbs .= "<li class='breadcrumb-item active'>$name</li>";
+        }
+        return $breadcrumbs;
     }
 
 }

@@ -16,7 +16,7 @@ class CategoryController extends AppController
     public function viewAction(): void
     {
         $lang = App::$app->getProperty('language');
-        $category = $this->model->get_category($this->route['slug'], $lang);
+        $category = $this->model->getCategory($this->route['slug'], $lang);
 
         if (!$category) {
             $this->error404();

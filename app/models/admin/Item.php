@@ -11,9 +11,9 @@ use wfm\App;
 class Item extends AppModel
 {
 
-    public function getItems($lang, $start, $perpage): array
+    public function getItems($lang, $start, $per_page): array
     {
-        return R::getAll("SELECT p.*, pd.title FROM items p JOIN item_descriptions pd on p.id = pd.item_id WHERE pd.language_id = ? LIMIT $start, $perpage", [$lang['id']]);
+        return R::getAll("SELECT p.*, pd.title FROM items p JOIN item_descriptions pd on p.id = pd.item_id WHERE pd.language_id = ? LIMIT $start, $per_page", [$lang['id']]);
     }
 
     public function getDownloads($q): array
@@ -130,6 +130,7 @@ class Item extends AppModel
             if (!$item) {
                 return false;
             }
+
             $item->category_id = @$request['category_id'] ? $request['category_id'] : null;
             $item->price = post('price', 'f');
             $item->old_price = post('old_price', 'f');

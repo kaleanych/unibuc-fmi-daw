@@ -18,7 +18,7 @@ class ItemController extends AppController
     {
         $lang = App::$app->getProperty('language');
         $page = get('page');
-        $per_page = 3;
+        $per_page = 10;
         $total = R::count('items');
         $pagination = new Pagination($page, $per_page, $total);
         $start = $pagination->getStart();
@@ -47,15 +47,14 @@ class ItemController extends AppController
             if ($this->model->validateItemRequest($request)) {
                 if ($id = $this->model->saveItem($request)) {
                     $_SESSION['success'] = 'Item added';
+                    if ($request['submit'] == 'save') {
+                        redirect("/admin/item/edit?id={$id}");
+                    }
                 } else {
                     $_SESSION['errors'] = 'Error!';
                 }
             }
-            if ($request['submit'] == 'save_add') {
-                redirect();
-            } else {
-                redirect("/admin/item/edit?id={$id}");
-            }
+            redirect();
         }
         $categories = Category::getCategories();
 

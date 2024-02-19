@@ -10,7 +10,7 @@ use wfm\App;
 class Category extends AppModel
 {
 
-    public function get_category($slug, $lang): array
+    public function getCategory($slug, $lang): array
     {
         return R::getRow("SELECT c.*, cd.* FROM categories c JOIN category_descriptions cd on c.id = cd.category_id WHERE c.slug = ? AND cd.language_id = ?", [$slug, $lang['id']]);
     }
@@ -33,8 +33,8 @@ class Category extends AppModel
         $sort_values = [
             'title_asc' => 'ORDER BY title ASC',
             'title_desc' => 'ORDER BY title DESC',
-            'price_asc' => 'ORDER BY price ASC',
-            'price_desc' => 'ORDER BY price DESC',
+//            'price_asc' => 'ORDER BY price ASC',
+//            'price_desc' => 'ORDER BY price DESC',
         ];
         $order_by = '';
         if (isset($_GET['sort']) && array_key_exists($_GET['sort'], $sort_values)) {

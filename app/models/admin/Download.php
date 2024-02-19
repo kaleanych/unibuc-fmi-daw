@@ -10,9 +10,9 @@ use RedBeanPHP\R;
 class Download extends AppModel
 {
 
-    public function getDownloads($lang, $start, $perpage): array
+    public function getDownloads($lang, $start, $per_page): array
     {
-        return R::getAll("SELECT d.*, dd.* FROM downloads d JOIN download_descriptions dd on d.id = dd.download_id WHERE dd.language_id = ? LIMIT $start, $perpage", [$lang['id']]);
+        return R::getAll("SELECT d.*, dd.* FROM downloads d JOIN download_descriptions dd on d.id = dd.download_id WHERE dd.language_id = ? LIMIT $start, $per_page", [$lang['id']]);
     }
 
     public function validateDownloadRequest(): bool

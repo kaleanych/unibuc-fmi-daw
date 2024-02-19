@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 
+use app\models\Author;
 use app\models\Main;
 use DOMDocument;
 use DOMXPath;
@@ -20,8 +21,9 @@ class MainController extends AppController
         $slides = R::findAll('slider');
 
         $items = $this->model->getHits($lang, 6);
+        $authors = Author::getFeatured($lang, 6);
 
-        $this->set(compact('slides', 'items'));
+        $this->set(compact('slides', 'items', 'authors'));
         $this->setMeta(___('main_index_meta_title'), ___('main_index_meta_description'), ___('main_index_meta_keywords'));
     }
 

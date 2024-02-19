@@ -22,7 +22,7 @@
                             <th scope="col"><?php __('tpl_cart_photo'); ?></th>
                             <th scope="col"><?php __('tpl_cart_item'); ?></th>
                             <th scope="col"><?php __('tpl_cart_qty'); ?></th>
-                            <th scope="col"><?php __('tpl_cart_price'); ?></th>
+                            <th scope="col"><?php //__('tpl_cart_price'); ?></th>
                             <th scope="col"><i class="far fa-trash-alt"></i></th>
                         </tr>
                         </thead>
@@ -35,7 +35,7 @@
                                 </td>
                                 <td><a href="item/<?= $item['slug'] ?>"><?= $item['title'] ?></a></td>
                                 <td><?= $item['qty'] ?></td>
-                                <td>$<?= $item['price'] ?></td>
+                                <td><?php //= $item['price'] ?></td>
                                 <td><a href="cart/delete?id=<?= $id ?>" data-id="<?= $id ?>" class="del-item"><i class="far fa-trash-alt"></i></a></td>
                             </tr>
                         <?php endforeach; ?>
@@ -43,10 +43,12 @@
                             <td colspan="4" class="text-end"><?php __('tpl_cart_total_qty'); ?></td>
                             <td class="cart-qty-basket"><?= $_SESSION['cart.qty'] ?></td>
                         </tr>
+                        <?php if (0):?>
                         <tr>
                             <td colspan="4" class="text-end"><?php __('tpl_cart_sum'); ?></td>
                             <td class="cart-sum-basket"><?= $_SESSION['cart.sum'] ?></td>
                         </tr>
+                        <?php endif;?>
                         </tbody>
                     </table>
                 </div>

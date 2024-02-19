@@ -13,9 +13,9 @@ use wfm\form\VALIDITY_TYPE;
 class Page extends AppModel
 {
 
-    public function getPages($lang, $start, $perpage): array
+    public function getPages($lang, $start, $per_page): array
     {
-        return R::getAll("SELECT p.*, pd.title FROM pages p JOIN page_descriptions pd on p.id = pd.page_id WHERE pd.language_id = ? LIMIT $start, $perpage", [$lang['id']]);
+        return R::getAll("SELECT p.*, pd.title FROM pages p JOIN page_descriptions pd on p.id = pd.page_id WHERE pd.language_id = ? LIMIT $start, $per_page", [$lang['id']]);
     }
 
     public function deletePage($id): bool

@@ -8,14 +8,14 @@ class Pagination
 {
 
     public $currentPage;
-    public $perpage;
+    public $per_page;
     public $total;
     public $countPages;
     public $uri;
 
-    public function __construct($page, $perpage, $total)
+    public function __construct($page, $per_page, $total)
     {
-        $this->perpage = $perpage;
+        $this->per_page = $per_page;
         $this->total = $total;
         $this->countPages = $this->getCountPages();
         $this->currentPage = $this->getCurrentPage($page);
@@ -100,7 +100,7 @@ class Pagination
 
     public function getCountPages()
     {
-        return ceil($this->total / $this->perpage) ?: 1;
+        return ceil($this->total / $this->per_page) ?: 1;
     }
 
     public function getCurrentPage($page)
@@ -112,7 +112,7 @@ class Pagination
 
     public function getStart()
     {
-        return ($this->currentPage - 1) * $this->perpage;
+        return ($this->currentPage - 1) * $this->per_page;
     }
 
     public function getParams()

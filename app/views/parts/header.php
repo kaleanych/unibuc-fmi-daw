@@ -44,7 +44,7 @@ use wfm\View;
                     <a href="#" class="open-search"><i class="fas fa-search"></i></a>
 
                     <a href="#" class="relative" id="get-cart" data-bs-toggle="modal" data-bs-target="#cart-modal">
-                        <i class="fas fa-shopping-bag"></i>
+                        <i class="fas fa-book-reader"></i>
                         <span class="badge bg-danger rounded-pill count-items"><?= $_SESSION['cart.qty'] ?? 0 ?></span>
                     </a>
 
@@ -77,7 +77,9 @@ use wfm\View;
 
             <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container-fluid p-0">
-                    <a class="navbar-brand" href="<?= base_url() ?>"><?= \wfm\App::$app->getProperty('site_name') ?></a>
+                    <a class="navbar-brand" href="<?= base_url() ?>">
+                        <img src="/logo24.png" alt=""><?= \wfm\App::$app->getProperty('site_name') ?>
+                    </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -85,6 +87,11 @@ use wfm\View;
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mb-2 mb-lg-0">
+                            <li class="px-1 nav-item">
+                                <a class="py-1 nav-link" href="authors"><?php __('tpl_authors') ?></a>
+                            </li>
+                        </ul>
                         <?php new \app\widgets\menu\category\Menu([
                             'class' => 'navbar-nav ms-auto mb-2 mb-lg-0',
                             'cache' => 30,

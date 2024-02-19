@@ -10,18 +10,18 @@ use RedBeanPHP\R;
 class Slider extends AppModel
 {
 
-    public function get_slides(): array
+    public function getSlides(): array
     {
         return R::getAssoc("SELECT * FROM slider");
     }
 
-    public function update_slider(): void
+    public function updateSlider(): void
     {
         if (!isset($_POST['gallery'])) {
             R::exec("DELETE FROM slider");
         }
         if (isset($_POST['gallery']) && is_array($_POST['gallery'])) {
-            $gallery = self::get_slides();
+            $gallery = self::getSlides();
             if ( (count($gallery) != count($_POST['gallery'])) || array_diff($gallery, $_POST['gallery']) || array_diff($_POST['gallery'], $gallery) ) {
                 R::exec("DELETE FROM slider");
                 $sql = "INSERT INTO slider (img) VALUES ";

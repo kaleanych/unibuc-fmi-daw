@@ -47,7 +47,7 @@
                                         ["category_description", $lang['id'], "title"],
                                         "Title",
                                         true,
-                                        isset($_SESSION['form_data']) ? null : h($category['category_description'][$lang['id']]['title'])
+                                        h($category['category_description'][$lang['id']]['title'])
                                     );
                                     echo $field->renderAsTextField();
                                     ?>
@@ -58,7 +58,7 @@
                                         ["category_description", $lang['id'], "description"],
                                         "Description",
                                         false,
-                                        isset($_SESSION['form_data']) ? null : h($category['category_description'][$lang['id']]['description'])
+                                        h($category['category_description'][$lang['id']]['description'])
                                     );
                                     echo $field->renderAsTextField();
                                     ?>
@@ -69,7 +69,7 @@
                                         ["category_description", $lang['id'], "keywords"],
                                         "Keywords",
                                         false,
-                                        isset($_SESSION['form_data']) ? null : h($category['category_description'][$lang['id']]['keywords'])
+                                        h($category['category_description'][$lang['id']]['keywords'])
                                     );
                                     echo $field->renderAsTextField();
                                     ?>
@@ -80,7 +80,7 @@
                                         ["category_description", $lang['id'], "content"],
                                         "Content",
                                         false,
-                                        isset($_SESSION['form_data']) ? null : h($category['category_description'][$lang['id']]['content'])
+                                        h($category['category_description'][$lang['id']]['content'])
                                     );
                                     echo $field->renderAsTextareaField();
                                     ?>

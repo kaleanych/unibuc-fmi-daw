@@ -3,7 +3,7 @@
 return [
     'admin_email' => $_ENV['ADMIN_EMAIL'],
     'site_name' => 'LiBRY',
-    'pagination' => 3,
+    'pagination' => 6,
     'lang' => 'en',
 
     'smtp_host' => $_ENV['smtp_host'],

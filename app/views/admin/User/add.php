@@ -35,6 +35,13 @@
 
             <div class="col-md-12">
                 <div class="form-group">
+                    <label class="required" for="phone_number">Phone</label>
+                    <input type="text" name="phone_number" class="form-control" id="phone_number" value="<?= get_field_value('phone_number') ?>">
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
                     <label class="required" for="role">Role</label>
                     <select name="role" id="role" class="form-control">
                         <option value="user">User</option>

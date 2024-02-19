@@ -117,13 +117,13 @@ class UserController extends AppController
         }
 
         $page = get('page');
-//        $perpage = App::$app->getProperty('pagination');
-        $perpage = 5;
+//        $per_page = App::$app->getProperty('pagination');
+        $per_page = 5;
         $total = $this->model->countOrders($_SESSION['user']['id']);
-        $pagination = new Pagination($page, $perpage, $total);
+        $pagination = new Pagination($page, $per_page, $total);
         $start = $pagination->getStart();
 
-        $orders = $this->model->getUserOrders($start, $perpage, $_SESSION['user']['id']);
+        $orders = $this->model->getUserOrders($start, $per_page, $_SESSION['user']['id']);
 
         $this->setMeta(___('user_orders_title'));
         $this->set(compact('orders', 'pagination', 'total'));

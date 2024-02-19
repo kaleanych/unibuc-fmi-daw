@@ -17,12 +17,12 @@ class DownloadController extends AppController
     {
         $lang = App::$app->getProperty('language');
         $page = get('page');
-        $perpage = 20;
+        $per_page = 20;
         $total = R::count('downloads');
-        $pagination = new Pagination($page, $perpage, $total);
+        $pagination = new Pagination($page, $per_page, $total);
         $start = $pagination->getStart();
 
-        $downloads = $this->model->getDownloads($lang, $start, $perpage);
+        $downloads = $this->model->getDownloads($lang, $start, $per_page);
         $title = 'Files (digital items)';
         $this->setMeta("Admin :: {$title}");
         $this->set(compact('title', 'downloads', 'pagination', 'total'));

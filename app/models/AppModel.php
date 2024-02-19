@@ -13,7 +13,7 @@ class AppModel extends Model
     {
         $str = self::str2url($str);
         $res = R::findOne($table, "$field = ?", [$str]);
-        if ($res) {
+        if ($res && ($res['id'] != $id)) {
             $str = "{$str}-{$id}";
             $res = R::count($table, "$field = ?", [$str]);
             if ($res) {

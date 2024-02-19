@@ -49,19 +49,18 @@ class CategoryController extends AppController
             if ($this->model->validateCategoryRequest($request)) {
                 if ($id = $this->model->saveCategory($request)) {
                     $_SESSION['success'] = 'Category added';
+                    if ($request['submit'] == 'save') {
+                        redirect("/admin/category/edit?id={$id}");
+                    }
                 } else {
                     $_SESSION['errors'] = 'Error!';
                 }
             }
 
-            if ($request['submit'] == 'save_add') {
-                redirect();
-            } else {
-                redirect("/admin/category/edit?id={$id}");
-            }
+            redirect();
         }
 
-        $category = $this->model->getEmptyCategory();
+        $category = $_SESSION['form_data'] ?? $this->model->getEmptyCategory();
         $categories = Category::getCategories();
 
         $title = 'New category';
@@ -80,17 +79,17 @@ class CategoryController extends AppController
             if ($this->model->validateCategoryRequest($request)) {
                 if ($this->model->updateCategory($id, $request)) {
                     $_SESSION['success'] = 'Category saved';
+                    if ($request['submit'] == 'save_add') {
+                        redirect("/admin/category/add");
+                    }
                 } else {
                     $_SESSION['errors'] = 'Error!';
                 }
             }
-            if ($request['submit'] == 'save_add') {
-                redirect("/admin/category/add");
-            } else {
-                redirect();
-            }
+
+            redirect();
         }
-        $category = $this->model->getCategory($id);
+        $category = $_SESSION['form_data'] ?? $this->model->getCategory($id);
         $categories = Category::getCategories();
 
         if (!$category) {

@@ -13,9 +13,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($order as $order_item): ?>
+                <?php foreach ($order_items as $order_item): ?>
                     <tr>
-                        <td><a href="item/<?= $order_item['slug'] ?>"><?= $order_item['title'] ?></a></td>
+                        <td><a href="item/<?= $order_item['slug'] ?>" target="_blank"><?= $order_item['title'] ?></a></td>
                         <td><?= $order_item['price'] ?></td>
                         <td><?= $order_item['qty'] ?></td>
                         <td><?= $order_item['sum'] ?></td>
@@ -24,7 +24,7 @@
                 </tbody>
             </table>
         </div>
-
+        <hr>
         <div class="box">
             <h3 class="box-title">Order details</h3>
             <div class="box-content">
@@ -32,38 +32,65 @@
                     <table class="table text-start table-striped">
                         <tr>
                             <td>Order number</td>
-                            <td><?= $order[0]['order_id'] ?></td>
+                            <td><?= $order['id'] ?></td>
                         </tr>
                         <tr>
                             <td>Status</td>
-                            <td><?= $order[0]['status'] ? 'Done' : 'New' ?></td>
+                            <td><?= $order['status'] ? 'Done' : 'New' ?></td>
                         </tr>
                         <tr>
                             <td>Created</td>
-                            <td><?= $order[0]['created_at'] ?></td>
+                            <td><?= $order['created_at'] ?></td>
                         </tr>
                         <tr>
                             <td>Updated</td>
-                            <td><?= $order[0]['updated_at'] ?></td>
+                            <td><?= $order['updated_at'] ?></td>
                         </tr>
                         <tr>
                             <td>Total</td>
-                            <td><?= $order[0]['total'] ?></td>
+                            <td><?= $order['total'] ?></td>
                         </tr>
                         <tr>
                             <td>Note</td>
-                            <td><?= $order[0]['note'] ?></td>
+                            <td><?= $order['note'] ?></td>
                         </tr>
                     </table>
                 </div>
             </div>
-
         </div>
-
-        <?php if (!$order[0]['status']): ?>
-            <a href="<?= ADMIN_URL ?>/order/edit?id=<?= $order[0]['order_id'] ?>&status=1" class="btn btn-success btn-flat">Status to Done</a>
+        <hr>
+        <div class="box">
+            <h3 class="box-title">User details</h3>
+            <div class="box-content">
+                <div class="table-responsive">
+                    <table class="table text-start table-striped">
+                        <tr>
+                            <td>Name</td>
+                            <td>
+                                <?= $order['user_name'] ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td><?= $order['user_email'] ?></td>
+                        </tr>
+                        <tr>
+                            <td>Phone</td>
+                            <td><?= $order['user_phone_number'] ?></td>
+                        </tr>
+                        <tr>
+                            <td>Address</td>
+                            <td><?= $order['user_address'] ?></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <?php if (!$order['status']): ?>
+            <a href="<?= ADMIN_URL ?>/order/edit?id=<?= $order['id'] ?>&status=1" class="btn btn-success btn-flat">Status to Done</a>
         <?php else: ?>
-            <a href="<?= ADMIN_URL ?>/order/edit?id=<?= $order[0]['order_id'] ?>&status=0" class="btn btn-danger btn-flat">Status to New</a>
+            <a href="<?= ADMIN_URL ?>/order/edit?id=<?= $order['id'] ?>&status=0" class="btn btn-danger btn-flat">Status to New</a>
         <?php endif; ?>
 
     </div>

@@ -45,16 +45,14 @@ class PageController extends AppController
             if ($this->model->validatePageRequest($request)) {
                 if ($id = $this->model->savePage($request)) {
                     $_SESSION['success'] = 'Page added';
+                    if ($request['submit'] == 'save') {
+                        redirect("/admin/page/edit?id={$id}");
+                    }
                 } else {
                     $_SESSION['errors'] = 'Error!';
                 }
             }
-
-            if ($request['submit'] == 'save_add') {
-                redirect();
-            } else {
-                redirect("/admin/page/edit?id={$id}");
-            }
+            redirect();
         }
 
         $page = $this->model->getEmptyPage();
@@ -73,15 +71,14 @@ class PageController extends AppController
             if ($this->model->validatePageRequest($request)) {
                 if ($this->model->updatePage($id, $request)) {
                     $_SESSION['success'] = 'Page saved';
+                    if ($request['submit'] == 'save_add') {
+                        redirect("/admin/page/add");
+                    }
                 } else {
                     $_SESSION['errors'] = 'Page save error';
                 }
             }
-            if ($request['submit'] == 'save_add') {
-                redirect("/admin/page/add");
-            } else {
-                redirect();
-            }
+            redirect();
         }
 
         $page = $this->model->getPage($id);

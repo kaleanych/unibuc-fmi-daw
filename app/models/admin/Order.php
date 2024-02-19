@@ -13,7 +13,7 @@ class Order extends AppModel
     public function getOrders($start, $per_page, $status): array
     {
         if ($status) {
-            return R::getAll("SELECT * FROM orders WHERE $status ORDER BY id DESC LIMIT $start, $perpage");
+            return R::getAll("SELECT * FROM orders WHERE $status ORDER BY id DESC LIMIT $start, $per_page");
         } else {
             return R::getAll("SELECT * FROM orders ORDER BY id DESC LIMIT $start, $per_page");
         }
@@ -21,7 +21,14 @@ class Order extends AppModel
 
     public function getOrder($id): array
     {
-        return R::getAll("SELECT o.*, op.* FROM orders o JOIN order_items op on o.id = op.order_id WHERE o.id = ?", [$id]);
+        return R::getRow("SELECT o.*, 
+        u.name AS user_name, u.email AS user_email, u.address AS user_address, u.phone_number AS user_phone_number 
+        FROM orders o JOIN users u ON u.id=o.user_id WHERE o.id = ?", [$id]);
+    }
+
+    public function getOrderItems($id): array
+    {
+        return R::getAll("SELECT oi.* FROM order_items oi WHERE oi.order_id = ?", [$id]);
     }
 
     public function changeStatus($id, $status): bool

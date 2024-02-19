@@ -36,7 +36,6 @@ use wfm\View;
 
     </div>
 <?php endif; ?>
-
 <?php if (!empty($items)): ?>
     <section class="featured-items">
         <div class="container">
@@ -51,38 +50,47 @@ use wfm\View;
         </div>
     </section>
 <?php endif; ?>
+<?php if (!empty($authors)): ?>
+    <section class="featured-items">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="section-title"><?php __('main_index_featured_authors'); ?></h3>
+                </div>
 
+                <?php $this->getPart('parts/authors_loop', compact('authors')); ?>
+
+            </div>
+        </div>
+    </section>
+<?php endif; ?>
+<hr>
 <section class="services">
     <div class="container">
         <div class="row">
-            <div class="col-12">
-                <h3 class="section-title">HOME</h3>
-            </div>
 
-            <div class="col-md-3 col-sm-6">
-                <div class="service-item">
+            <div class="col-sm-4">
+                <div class="service-item text-center">
                     <p class="text-center"><i class="fas fa-book"></i></p>
+                    <p><?php __('tpl_get_a_book');?></p>
                 </div>
             </div>
 
-            <div class="col-md-3 col-sm-6">
-                <div class="service-item">
-                    <p class="text-center"><i class="fas fa-book-dead"></i></p>
-                </div>
-            </div>
-
-            <div class="col-md-3 col-sm-6">
-                <div class="service-item">
+            <div class="col-sm-4">
+                <div class="service-item text-center">
                     <p class="text-center"><i class="fas fa-book-open"></i></p>
+                    <p><?php __('tpl_open_the_book');?></p>
                 </div>
             </div>
 
-            <div class="col-md-3 col-sm-6">
-                <div class="service-item">
+            <div class="col-sm-4">
+                <div class="service-item text-center">
                     <p class="text-center"><i class="fas fa-book-reader"></i></p>
+                    <p><?php __('tpl_read_the_book');?></p>
                 </div>
             </div>
 
         </div>
     </div>
 </section>
+

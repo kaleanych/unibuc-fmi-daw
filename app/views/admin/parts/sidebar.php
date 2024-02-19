@@ -59,6 +59,13 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="<?= ADMIN_URL ?>/author" class="nav-link<?=is_current_route('Author') ? ' active' : ''; ?>">
+                        <i class="nav-icon fas fa-users-cog"></i>
+                        <p>Authors</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="<?= ADMIN_URL ?>/item" class="nav-link<?=is_current_route('Item') ? ' active' : ''; ?>">
                         <i class="nav-icon fas fa-barcode"></i>
                         <p>Items</p>

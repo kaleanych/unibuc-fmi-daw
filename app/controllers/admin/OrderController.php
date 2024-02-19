@@ -17,12 +17,12 @@ class OrderController extends AppController
         $status = ($status == 'new') ? ' status = 0 ' : '';
 
         $page = get('page');
-        $perpage = 20;
+        $per_page = 20;
         $total = R::count('orders', $status);
-        $pagination = new Pagination($page, $perpage, $total);
+        $pagination = new Pagination($page, $per_page, $total);
         $start = $pagination->getStart();
 
-        $orders = $this->model->getOrders($start, $perpage, $status);
+        $orders = $this->model->getOrders($start, $per_page, $status);
         $title = 'Orders';
         $this->setMeta("Admin :: {$title}");
         $this->set(compact('title', 'orders', 'pagination', 'total'));
@@ -45,9 +45,10 @@ class OrderController extends AppController
         if (!$order) {
             throw new \Exception('Order not found', 404);
         }
+        $order_items = $this->model->getOrderItems($id);
         $title = "Order № {$id}";
         $this->setMeta("Admin :: {$title}");
-        $this->set(compact('title', 'order'));
+        $this->set(compact('title', 'order', 'order_items'));
     }
 
 }

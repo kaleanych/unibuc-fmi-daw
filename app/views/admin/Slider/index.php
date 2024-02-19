@@ -16,16 +16,18 @@
                                     onclick="popupGalleryImage(); return false;">Upload
                             </button>
                             <div id="gallery-img-output" class="upload-images gallery-image">
-                                <?php if (!empty($gallery)): ?>
+                                <?php
+                                if (!empty($gallery)):
+                                    ?>
                                     <?php foreach ($gallery as $item): ?>
-                                        <div class="item-img-upload">
-                                            <img src="<?= $item ?>">
-                                            <input type="hidden" name="gallery[]"
-                                                   value="<?= $item ?>">
-                                            <button class="del-img btn btn-app bg-danger"><i
+                                    <div class="item-img-upload">
+                                        <img src="<?= $item ?>">
+                                        <input type="hidden" name="gallery[]"
+                                               value="<?= $item ?>">
+                                        <button class="del-img btn btn-app bg-danger"><i
                                                     class="far fa-trash-alt"></i></button>
-                                        </div>
-                                    <?php endforeach; ?>
+                                    </div>
+                                <?php endforeach; ?>
                                 <?php endif; ?>
                             </div>
                         </div>

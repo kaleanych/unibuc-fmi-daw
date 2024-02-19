@@ -22,6 +22,10 @@
                     <td><?= $user['address'] ?></td>
                 </tr>
                 <tr>
+                    <td>Phone</td>
+                    <td><?= $user['phone_number'] ?></td>
+                </tr>
+                <tr>
                     <td>Role</td>
                     <td><?php include '_role.php'; ?></td>
                 </tr>

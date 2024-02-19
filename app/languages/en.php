@@ -19,7 +19,7 @@ return [
     'tpl_cart_price' => 'Price',
     'tpl_cart_total_qty' => 'Total:',
     'tpl_cart_sum' => 'Sum:',
-    'tpl_cart_btn_continue' => 'Continue shopping',
+    'tpl_cart_btn_continue' => 'Continue navigation',
     'tpl_cart_btn_order' => 'Checkout',
     'tpl_cart_btn_clear' => 'Clear basket',
     'tpl_cart_empty' => 'Empty basket',
@@ -55,5 +55,12 @@ return [
 
     'tpl_error_404' => '404 - Page not found',
 
-    'tpl_top_goodreads_books' => 'Top books from GoodeReads'
+    'tpl_top_goodreads_books' => 'Top books from GoodeReads',
+
+    'tpl_authors' => 'Authors',
+
+    'tpl_get_a_book' => 'Get a Book',
+    'tpl_open_the_book' => 'Open the Book',
+    'tpl_read_the_book' => 'Read the Book',
+    'tpl_count_books' => '%d books',
 ];

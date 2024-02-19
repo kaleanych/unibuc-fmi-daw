@@ -13,7 +13,7 @@ class SliderController extends AppController
     public function indexAction()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->model->update_slider();
+            $this->model->updateSlider();
             $_SESSION['success'] = 'Slider updated';
             redirect();
         }

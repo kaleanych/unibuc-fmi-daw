@@ -28,7 +28,7 @@ class CartController extends AppController
             return false;
         }
 
-        $this->model->add_to_cart($item, $qty);
+        $this->model->addToCart($item, $qty);
         if ($this->isAjax()) {
             $this->loadView('cart_modal');
         }
@@ -45,7 +45,7 @@ class CartController extends AppController
     {
         $id = get('id');
         if (isset($_SESSION['cart'][$id])) {
-            $this->model->delete_item($id);
+            $this->model->deleteItem($id);
         }
         if ($this->isAjax()) {
             $this->loadView('cart_modal');

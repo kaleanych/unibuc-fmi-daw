@@ -262,7 +262,7 @@ li a.dropdown-item:focus, li a.dropdown-item:hover {
 }
 .my-carousel .carousel-item {
 	display: flex;
-	max-height: 500px;
+	max-height: 300px;
 }
 .my-carousel .carousel-item img {
 	object-fit: cover;
