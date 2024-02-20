@@ -14,7 +14,7 @@ class Author extends AppModel
 
     private static function addCountBooksSQL($fsql): string
     {
-        return sprintf($fsql, "b.count_books", "LEFT JOIN (SELECT author_id, COUNT(id) as count_books FROM items GROUP BY author_id) b ON b.author_id=ad.author_id");
+        return sprintf($fsql, "IFNULL(b.count_books, 0) AS count_books", "LEFT JOIN (SELECT author_id, COUNT(id) as count_books FROM items GROUP BY author_id) b ON b.author_id=ad.author_id");
     }
 
     public function getAuthors($lang, $start, $per_page): array

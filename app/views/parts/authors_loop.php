@@ -10,7 +10,7 @@
             <div class="item-details">
                 <h4><a href="author/<?= $author['slug'] ?>"><?= $author['name'] ?></a></h4>
                 <p>
-                    <?=sprintf(___('tpl_count_books'), "<b>".$author['count_books']."</b>");?>
+                    <?=sprintf(___('tpl_count_books'), "<b>".strval($author['count_books'])."</b>");?>
                 </p>
                 <div class="item-bottom-details d-flex justify-content-between text-primary">
                     <div class="item-price">

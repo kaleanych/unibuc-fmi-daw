@@ -29,7 +29,7 @@
 
             <?php if ($pagination->countPages > 1 || count($items) > 1): ?>
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                         <div class="input-group mb-3">
                             <label class="input-group-text" for="input-sort"><?php __('category_view_sort'); ?>:</label>
                             <select class="form-select" id="input-sort">
