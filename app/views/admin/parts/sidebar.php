@@ -1,3 +1,10 @@
+<?php
+
+use app\models\admin\User;
+
+$avatar = User::isAdmin() ? 'avatar5.png' : 'avatar3.png';
+
+?>
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -11,7 +18,7 @@
         <!-- Sidebar user (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="<?= SITE_URL ?>/adminlte/dist/img/user2-160x160.jpg" class="img-circle elevation-2"
+                <img src="<?= SITE_URL ?>/adminlte/dist/img/<?=$avatar;?>" class="img-circle elevation-2"
                      alt="User Image">
             </div>
             <div class="info">
@@ -36,7 +43,7 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
+                <?php if (User::isAdmin()):?>
                 <li class="nav-item">
                     <a href="<?= ADMIN_URL ?>" class="nav-link<?=is_current_route('Main') ? ' active' : ''; ?>">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -50,6 +57,37 @@
                         <p>Pages</p>
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a href="<?= ADMIN_URL ?>/user" class="nav-link<?=is_current_route('User') ? ' active' : ''; ?>">
+                        <i class="nav-icon fas fa-user-friends"></i>
+                        <p>Users</p>
+                    </a>
+                </li>
+
+                <?php if (0):?>
+                <li class="nav-item">
+                    <a href="<?= ADMIN_URL ?>/download" class="nav-link<?=is_current_route('Download') ? ' active' : ''; ?>">
+                        <i class="nav-icon fas fa-file-upload"></i>
+                        <p>Files</p>
+                    </a>
+                </li>
+                <?php endif;?>
+
+                <li class="nav-item">
+                    <a href="<?= ADMIN_URL ?>/cache" class="nav-link<?=is_current_route('Cache') ? ' active' : ''; ?>">
+                        <i class="nav-icon fas fa-database"></i>
+                        <p>Cache</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="<?= ADMIN_URL ?>/slider" class="nav-link<?=is_current_route('Slider') ? ' active' : ''; ?>">
+                        <i class="nav-icon far fa-image"></i>
+                        <p>Slider</p>
+                    </a>
+                </li>
+                <?php endif;?>
 
                 <li class="nav-item">
                     <a href="<?= ADMIN_URL ?>/category" class="nav-link<?=is_current_route('Category') ? ' active' : ''; ?>">
@@ -73,42 +111,11 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="<?= ADMIN_URL ?>/user" class="nav-link<?=is_current_route('User') ? ' active' : ''; ?>">
-                        <i class="nav-icon fas fa-user-friends"></i>
-                        <p>Users</p>
-                    </a>
-                </li>
-
-                <?php if (0):?>
-                <li class="nav-item">
-                    <a href="<?= ADMIN_URL ?>/download" class="nav-link">
-                        <i class="nav-icon fas fa-file-upload"></i>
-                        <p>Files</p>
-                    </a>
-                </li>
-                <?php endif;?>
-
-                <li class="nav-item">
-                    <a href="<?= ADMIN_URL ?>/order" class="nav-link">
+                    <a href="<?= ADMIN_URL ?>/order" class="nav-link<?=is_current_route('Order') ? ' active' : ''; ?>">
                         <i class="nav-icon fas fa-shopping-bag"></i>
                         <p>Orders</p>
                     </a>
                 </li>
-
-                <li class="nav-item">
-                    <a href="<?= ADMIN_URL ?>/cache" class="nav-link">
-                        <i class="nav-icon fas fa-database"></i>
-                        <p>Cache</p>
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="<?= ADMIN_URL ?>/slider" class="nav-link">
-                        <i class="nav-icon far fa-image"></i>
-                        <p>Slider</p>
-                    </a>
-                </li>
-
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

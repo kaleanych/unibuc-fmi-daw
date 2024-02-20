@@ -55,7 +55,7 @@ class PageController extends AppController
             redirect();
         }
 
-        $page = $this->model->getEmptyPage();
+        $page = $_SESSION['form_data'] ?? $this->model->getEmptyPage();
 
         $title = 'New page';
         $this->setMeta("Admin :: {$title}");
@@ -81,7 +81,7 @@ class PageController extends AppController
             redirect();
         }
 
-        $page = $this->model->getPage($id);
+        $page = $_SESSION['form_data'] ?? $this->model->getPage($id);
         if (!$page) {
             throw new \Exception('Page not found', 404);
         }

@@ -30,7 +30,7 @@
                                         ["page_description", $lang['id'], "title"],
                                         "Title",
                                         true,
-                                        isset($_SESSION['form_data']) ? null : h($page[$lang['id']]['title'])
+                                        h($page['page_description'][$lang['id']]['title'])
                                     );
                                     echo $field->renderAsTextField();
                                     ?>
@@ -41,7 +41,7 @@
                                         ["page_description", $lang['id'], "description"],
                                         "Description",
                                         false,
-                                        isset($_SESSION['form_data']) ? null : h($page[$lang['id']]['description'])
+                                        h($page['page_description'][$lang['id']]['description'])
                                     );
                                     echo $field->renderAsTextField();
                                     ?>
@@ -52,7 +52,7 @@
                                         ["page_description", $lang['id'], "keywords"],
                                         "Keywords",
                                         false,
-                                        isset($_SESSION['form_data']) ? null : h($page[$lang['id']]['keywords'])
+                                        h($page['page_description'][$lang['id']]['keywords'])
                                     );
                                     echo $field->renderAsTextField();
                                     ?>
@@ -63,7 +63,7 @@
                                         ["page_description", $lang['id'], "content"],
                                         "Content",
                                         true,
-                                        isset($_SESSION['form_data']) ? null : h($page[$lang['id']]['content'])
+                                        h($page['page_description'][$lang['id']]['content'])
                                     );
                                     echo $field->renderAsTextareaField();
                                     ?>

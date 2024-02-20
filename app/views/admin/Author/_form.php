@@ -99,7 +99,11 @@
 
             <button type="submit" class="btn btn-primary" name="submit" value="save">Save</button>
             <button type="submit" class="btn btn-warning" name="submit" value="save_add">Save & Add</button>
-
+            <?php if (isset($author['id'])):?>
+            <a class="btn btn-success float-right"
+               href="<?= ADMIN_URL ?>/item?author_id=<?= $author['id'] ?>"><i
+                        class="fas fa-book-open"></i></a>
+            <?php endif;?>
         </form>
         <?php clear_form_session(); ?>
     </div>

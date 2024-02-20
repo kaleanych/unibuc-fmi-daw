@@ -9,7 +9,7 @@ class Author extends AppModel
 {
     public static function getFeatured($lang, $limit): array
     {
-        return R::getAll(self::addCountBooksSQL("SELECT a.* , ad.*, %s FROM authors a JOIN author_descriptions ad on a.id = ad.author_id %s WHERE a.status = 1 AND a.featured = 1 AND ad.language_id = ? LIMIT $limit"), [$lang['id']]);
+        return R::getAll(self::addCountBooksSQL("SELECT a.* , ad.*, %s FROM authors a JOIN author_descriptions ad on a.id = ad.author_id %s WHERE a.status = 1 AND a.featured = 1 AND ad.language_id = ? ORDER BY RAND() LIMIT $limit"), [$lang['id']]);
     }
 
     private static function addCountBooksSQL($fsql): string

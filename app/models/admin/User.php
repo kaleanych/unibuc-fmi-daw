@@ -14,6 +14,7 @@ class User extends \app\models\User
         'address' => '',
         'phone_number' => '',
         'role' => '',
+        'status' => 0,
     ];
 
     public array $rules = [
@@ -22,6 +23,7 @@ class User extends \app\models\User
         'lengthMin' => [
             ['password', 6],
         ],
+
         'optional' => ['password'],
     ];
 
@@ -32,6 +34,7 @@ class User extends \app\models\User
         'address' => 'Address',
         'phone_number' => 'Phone',
         'role' => 'Role',
+        'status' => 'Status',
     ];
 
     public static function isAdmin(): bool
@@ -39,9 +42,26 @@ class User extends \app\models\User
         return (isset($_SESSION['user']) && $_SESSION['user']['role'] == 'admin');
     }
 
+    public static function canAdmin(): bool
+    {
+        return (isset($_SESSION['user']) && in_array($_SESSION['user']['role'],  ['admin', 'librarian']));
+    }
+
     public function getUsers($start, $per_page): array
     {
         return R::findAll('users', "LIMIT $start, $per_page");
+    }
+
+    public function getEmptyUser(): array
+    {
+        return [
+            'email' => '',
+            'name' => '',
+            'address' => '',
+            'phone_number' => '',
+            'role' => 'user',
+            'status' => 0,
+        ];
     }
 
     public function getUser($id): array

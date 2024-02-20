@@ -15,6 +15,7 @@
                         <th>ID</th>
                         <th>Image</th>
                         <th>Title</th>
+                        <th>Author</th>
                         <th>Price</th>
                         <th>Status</th>
                         <th></th>
@@ -31,6 +32,9 @@
                             </td>
                             <td>
                                 <?= $item['title'] ?>
+                            </td>
+                            <td>
+                                <a href="<?= ADMIN_URL ?>/author/edit?id=<?= $item['author_id'] ?>" target="_blank"><?= $item['author_name'] ?></a>
                             </td>
                             <td>
                                 <?= $item['price'] ?>

@@ -139,7 +139,8 @@ class Page extends AppModel
     public function getEmptyPage(): array
     {
         $lang_codes = App::$app->getProperty('lang_codes');
-        return array_combine(
+        $page = [];
+        $page['page_description'] = array_combine(
             array_keys($lang_codes),
             array_fill(0, count($lang_codes), [
                 'title' => '',
@@ -148,11 +149,15 @@ class Page extends AppModel
                 'content' => ''
             ])
         );
+
+        return $page;
     }
 
     public function getPage($id): array
     {
-        return R::getAssoc("SELECT pd.language_id, pd.*, p.* FROM page_descriptions pd JOIN pages p on p.id = pd.page_id WHERE pd.page_id = ?", [$id]);
+        $page = [];
+        $page['page_description'] = R::getAssoc("SELECT pd.language_id, pd.*, p.* FROM page_descriptions pd JOIN pages p on p.id = pd.page_id WHERE pd.page_id = ?", [$id]);
+        return $page;
     }
 
 }

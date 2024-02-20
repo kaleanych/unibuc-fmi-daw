@@ -49,7 +49,7 @@ abstract class Model
     {
         $errors = '';
         if (count($this->errors) > 0) {
-            $errors .= '<ul>';
+            $errors .= '<ul class="my-0">';
             foreach ($this->errors as $error) {
                 foreach ($error as $item) {
                     $errors .= "<li>{$item}</li>";

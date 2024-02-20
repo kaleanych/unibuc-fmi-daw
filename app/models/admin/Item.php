@@ -11,9 +11,22 @@ use wfm\App;
 class Item extends AppModel
 {
 
-    public function getItems($lang, $start, $per_page): array
+    public function countItems($lang, $author_id = null): int
     {
-        return R::getAll("SELECT p.*, pd.title FROM items p JOIN item_descriptions pd on p.id = pd.item_id WHERE pd.language_id = ? LIMIT $start, $per_page", [$lang['id']]);
+        $params = [$lang['id'], $lang['id']];
+        if ($author_id) {
+            $params[] = $author_id;
+        }
+        return R::getCell("SELECT COUNT(*) FROM items i JOIN item_descriptions id on i.id = id.item_id LEFT JOIN author_descriptions ad ON (i.author_id=ad.author_id AND ad.language_id=?) WHERE id.language_id = ? " . ($author_id ? 'AND i.author_id = ?' : ''), $params);
+    }
+
+    public function getItems($lang, $start, $per_page, $author_id = null): array
+    {
+        $params = [$lang['id'], $lang['id']];
+        if ($author_id) {
+            $params[] = $author_id;
+        }
+        return R::getAll("SELECT i.*, id.title, ad.name AS author_name FROM items i JOIN item_descriptions id on i.id = id.item_id LEFT JOIN author_descriptions ad ON (i.author_id=ad.author_id AND ad.language_id=?) WHERE id.language_id = ? " . ($author_id ? 'AND i.author_id = ?' : '') . " LIMIT $start, $per_page", $params);
     }
 
     public function getDownloads($q): array
@@ -200,6 +213,7 @@ class Item extends AppModel
         $lang_codes = App::$app->getProperty('lang_codes');
         $item = [
                     'category_id' => null,
+                    'author_id' => null,
                     'price' => null,
                     'old_price' => null,
                     'status' => null,
@@ -207,7 +221,7 @@ class Item extends AppModel
                     'img' => null,
                     'is_download' => null
         ];
-        $item['item_description '] = array_combine(
+        $item['item_description'] = array_combine(
             array_keys($lang_codes),
             array_fill(0, count($lang_codes), [
                 'title' => '',
@@ -222,23 +236,23 @@ class Item extends AppModel
 
     public function getItem($id): array|false
     {
-        $item = R::getAssoc("SELECT id.language_id, id.*, i.* FROM item_descriptions id JOIN items i ON i.id = id.item_id WHERE id.item_id = ?", [$id]);
+        $item = R::getRow("SELECT i.* FROM items i WHERE i.id = ?", [$id]);
         if (!$item) {
             return false;
         }
-        $key = key($item);
-        if ($item[$key]['is_download']) {
+        if ($item['is_download']) {
             $download_info = self::getItemDownload($id);
-            $item[$key]['download_id'] = $download_info['download_id'];
-            $item[$key]['download_name'] = $download_info['name'];
+            $item['download_id'] = $download_info['download_id'];
+            $item['download_name'] = $download_info['name'];
         }
+        $item['item_description'] = R::getAssoc("SELECT id.language_id, id.* FROM item_descriptions id WHERE id.item_id = ?", [$id]);
         return $item;
     }
 
     public function getItemDownload($item_id): array
     {
         $lang_id = App::$app->getProperty('language')['id'];
-        return R::getRow("SELECT pd.download_id, dd.name FROM item_downloads pd JOIN download_descriptions dd ON pd.download_id = dd.download_id WHERE pd.item_id = ? AND dd.language_id = ?", [$item_id, $lang_id]);
+        return R::getRow("SELECT id.download_id, dd.name FROM item_downloads id JOIN download_descriptions dd ON id.download_id = dd.download_id WHERE id.item_id = ? AND dd.language_id = ?", [$item_id, $lang_id]);
     }
 
     public function getGallery($id): array

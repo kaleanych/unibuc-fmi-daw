@@ -14,6 +14,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
+                        <td style="width:50px" class="text-center"><i class="fas fa-book"></i></td>
                         <td style="width:50px" class="text-center"><i class="fas fa-pencil-alt"></i></td>
                         <td style="width:50px" class="text-center"><i class="far fa-trash-alt"></i></td>
                     </tr>
@@ -24,6 +25,11 @@
                             <td><?= $author['id'] ?></td>
                             <td>
                                 <?= $author['name'] ?>
+                            </td>
+                            <td width="50">
+                                <a class="btn btn-success btn-sm"
+                                   href="<?= ADMIN_URL ?>/item?author_id=<?= $author['id'] ?>"><i
+                                            class="fas fa-book-open"></i></a>
                             </td>
                             <td width="50">
                                 <a class="btn btn-info btn-sm"

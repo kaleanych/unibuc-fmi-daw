@@ -14,7 +14,7 @@ class UserController extends AppController
     public function indexAction()
     {
         $page = get('page');
-        $per_page = 1;
+        $per_page = 10;
         $total = R::count('users');
         $pagination = new Pagination($page, $per_page, $total);
         $start = $pagination->getStart();
@@ -50,6 +50,7 @@ class UserController extends AppController
         if (!empty($_POST)) {
             $request = $_POST;
             $this->model->load();
+            $this->model->attributes['status'] = (isset($request['status']) ? 1 : 0);
             if (!$this->model->validate($this->model->attributes) || !$this->model->checkUnique('This email is already in use')) {
                 $this->model->getErrors();
                 $_SESSION['form_data'] = $request;
@@ -67,15 +68,17 @@ class UserController extends AppController
 
             redirect();
         }
-        $title = 'New user';
+
+        $user = $_SESSION['form_data'] ?? $this->model->getEmptyUser();
+            $title = 'New user';
         $this->setMeta("Admin :: {$title}");
-        $this->set(compact('title'));
+        $this->set(compact('title', 'user'));
     }
 
     public function editAction()
     {
         $id = get('id');
-        $user = $this->model->getUser($id);
+        $user = $_SESSION['form_data'] ?? $this->model->getUser($id);
         if (!$user) {
             throw new \Exception('User not found', 404);
         }
@@ -86,6 +89,7 @@ class UserController extends AppController
             if (empty($this->model->attributes['password'])) {
                 unset($this->model->attributes['password']);
             }
+            $this->model->attributes['status'] = (isset($request['status']) ? 1 : 0);
 
             if (!$this->model->validate($this->model->attributes) || !$this->model->checkEmail($user)) {
                 $this->model->getErrors();
@@ -113,7 +117,7 @@ class UserController extends AppController
 
     public function loginAdminAction()
     {
-        if ($this->model::isAdmin()) {
+        if ($this->model::canAdmin()) {
             redirect(ADMIN_URL);
         }
 
@@ -124,7 +128,7 @@ class UserController extends AppController
             } else {
                 $_SESSION['errors'] = 'Wrong credentials';
             }
-            if ($this->model::isAdmin()) {
+            if ($this->model::canAdmin()) {
                 redirect(ADMIN_URL);
             } else {
                 redirect();
@@ -135,7 +139,7 @@ class UserController extends AppController
 
     public function logoutAction()
     {
-        if ($this->model::isAdmin()) {
+        if ($this->model::canAdmin()) {
             unset($_SESSION['user']);
         }
         redirect(ADMIN_URL . '/user/login-admin');

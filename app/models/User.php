@@ -47,13 +47,13 @@ class User extends AppModel
         return true;
     }
 
-    public function login($is_admin = false): bool
+    public function login($can_admin = false): bool
     {
         $email = post('email');
         $password = post('password');
         if ($email && $password) {
-            if ($is_admin) {
-                $user = R::findOne('users', "email = ? AND role = 'admin' AND status=1", [$email]);
+            if ($can_admin) {
+                $user = R::findOne('users', "email = ? AND role IN ('admin', 'librarian') AND status=1", [$email]);
             } else {
                 $user = R::findOne('users', "email = ? AND status=1", [$email]);
             }

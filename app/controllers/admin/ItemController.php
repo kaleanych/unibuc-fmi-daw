@@ -17,14 +17,15 @@ class ItemController extends AppController
 
     public function indexAction()
     {
+        $author_id = get('author_id', 'i');
         $lang = App::$app->getProperty('language');
         $page = get('page');
         $per_page = 10;
-        $total = R::count('items');
+        $total = $this->model->countItems($lang, $author_id);
         $pagination = new Pagination($page, $per_page, $total);
         $start = $pagination->getStart();
 
-        $items = $this->model->getItems($lang, $start, $per_page);
+        $items = $this->model->getItems($lang, $start, $per_page, $author_id);
         $title = 'Items';
         $this->setMeta("Admin :: {$title}");
         $this->set(compact('title', 'items', 'pagination', 'total'));
@@ -60,7 +61,7 @@ class ItemController extends AppController
         $categories = Category::getCategories();
         $authors = Author::getAllAuthors();
 
-        $item = $this->model->getEmptyItem();
+        $item = $_SESSION['form_data'] ?? $this->model->getEmptyItem();
 
         $title = 'New item';
         $this->setMeta("Admin :: {$title}");
@@ -83,7 +84,7 @@ class ItemController extends AppController
             redirect();
         }
 
-        $item = $this->model->getItem($id);
+        $item = $_SESSION['form_data'] ?? $this->model->getItem($id);
         if (!$item) {
             throw new \Exception('Item not found', 404);
         }

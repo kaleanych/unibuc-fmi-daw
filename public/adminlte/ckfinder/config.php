@@ -27,7 +27,7 @@ $config = array();
 
 $config['authentication'] = function () {
     session_start();
-    return (isset($_SESSION['user']) && $_SESSION['user']['role'] == 'admin');
+    return (isset($_SESSION['user']) && in_array($_SESSION['user']['role'], ['admin', 'librarian']));
 };
 
 /*============================ License Key ============================================*/

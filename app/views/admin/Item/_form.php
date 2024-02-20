@@ -6,7 +6,7 @@
         <form action="" method="post">
 
             <div class="form-group">
-                <label for="parent_id">Category</label>
+                <label for="category_id">Category</label>
                 <?php new \app\widgets\menu\category\Menu([
                     'cache' => 0,
                     'cacheKey' => 'admin_menu_select',
@@ -24,62 +24,68 @@
                 ]) ?>
             </div>
 
+            <div class="form-group">
+                <label for="author_id">Author</label>
+                <select class="form-select form-control" name="author_id" id="author_id">
+                    <option value=""></option>
+                    <?php foreach ($authors as $author_id => $author): ?>
+                        <option value="<?= $author_id; ?>" <?= ($author_id == ($item['author_id'] ?? null) ? 'selected="selected"' : ''); ?>><?= $author['name']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <?php
-                        $field = \wfm\form\FormField::build(
-                            "price",
-                            "price",
-                            isset($_SESSION['form_data']) ? null : h($item['price']),
-                            'Price',
-                            false
-                        );
-                        echo $field->renderAsTextField();
-                        ?>
+                        <label for="price">Price</label>
+                        <input type="text" name="price" class="form-control" id="price" placeholder="Price"
+                               value="<?= $item['price'] ?>">
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="old_price">Old price</label>
-                        <input type="text" name="old_price" class="form-control" id="old_price" placeholder="Old price"
-                               value="<?= get_field_value('old_price') ?: 0 ?>">
+                        <input type="text" name="old_price" class="form-control" id="old_price"
+                               placeholder="Old price" value="<?= $item['old_price'] ?>">
                     </div>
                 </div>
             </div>
-
+            <hr>
             <div class="form-group">
                 <div class="custom-control custom-checkbox">
-                    <input class="custom-control-input" type="checkbox" id="status" name="status" checked>
+                    <input class="custom-control-input" type="checkbox" id="status"
+                           name="status" <?= $item['status'] ? 'checked' : '' ?>>
                     <label for="status" class="custom-control-label">Display on site</label>
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="custom-control custom-checkbox">
-                    <input class="custom-control-input" type="checkbox" id="hit" name="hit">
+                    <input class="custom-control-input" type="checkbox" id="hit"
+                           name="hit" <?= $item['hit'] ? 'checked' : '' ?>>
                     <label for="hit" class="custom-control-label">Hit</label>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="custom-control">
-                    <select class="form-select">
-                        <option value="">Open this select menu</option>
-                        <?php foreach ($authors as $author): ?>
-                            <option value="<?=$author['author_id'];?>" <?=($author['author_id'] == $item['author_id'] ? 'selected="selected"' : '');?>><?=$author['name'];?></option>
-                        <?php endforeach; ?>
-                    </select>
                 </div>
             </div>
 
             <?php if (0): ?>
                 <div class="row">
                     <div class="col-md-12">
+
                         <div class="form-group">
                             <label for="is_download">Link a file to make the item downloadable</label>
+                            <?php if (isset($item['download_id'])): ?>
+                                <p class="clear-download">
+                                    <span class="btn btn-danger">Regular item</span>
+                                </p>
+                            <?php endif; ?>
                             <select name="is_download" class="form-control select2 is-download" id="is_download"
-                                    style="width: 100%;"></select>
+                                    style="width: 100%;">
+                                <?php if (isset($item['download_id'])): ?>
+                                    <option value="<?= $item['download_id'] ?>"
+                                            selected><?= $item['download_name'] ?></option>
+                                <?php endif; ?>
+                            </select>
+
                         </div>
                     </div>
                 </div>
@@ -95,7 +101,18 @@
                             <button class="btn btn-success" id="add-base-img" onclick="popupBaseImage(); return false;">
                                 Upload
                             </button>
-                            <div id="base-img-output" class="upload-images base-image"></div>
+                            <div id="base-img-output" class="upload-images base-image">
+                                <?php if (isset($item['img']) && $item['img']):?>
+                                <div class="item-img-upload">
+                                    <img src="<?= $item['img'] ?>">
+                                    <input type="hidden" name="img" value="<?= $item['img'] ?>">
+                                    <?php if ($item['img'] != NO_IMAGE): ?>
+                                        <button class="del-img btn btn-app bg-danger"><i class="far fa-trash-alt"></i>
+                                        </button>
+                                    <?php endif; ?>
+                                </div>
+                                <?php endif;?>
+                            </div>
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -112,7 +129,19 @@
                             <button class="btn btn-success" id="add-gallery-img"
                                     onclick="popupGalleryImage(); return false;">Upload
                             </button>
-                            <div id="gallery-img-output" class="upload-images gallery-image"></div>
+                            <div id="gallery-img-output" class="upload-images gallery-image">
+                                <?php if (!empty($gallery)): ?>
+                                    <?php foreach ($gallery as $gallery_item): ?>
+                                        <div class="item-img-upload">
+                                            <img src="<?= $gallery_item ?>">
+                                            <input type="hidden" name="gallery[]"
+                                                   value="<?= $gallery_item ?>">
+                                            <button class="del-img btn btn-app bg-danger"><i
+                                                        class="far fa-trash-alt"></i></button>
+                                        </div>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </div>
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -143,7 +172,7 @@
                                     <label class="required" for="<?= $lang['id'] ?>_title">Title</label>
                                     <input type="text" name="item_description[<?= $lang['id'] ?>][title]"
                                            class="form-control" id="<?= $lang['id'] ?>_title" placeholder="Title"
-                                           value="<?= get_field_array_value('item_description', $lang['id'], 'title') ?>">
+                                           value="<?= h($item['item_description'][$lang['id']]['title']) ?>">
                                 </div>
 
                                 <div class="form-group">
@@ -151,28 +180,28 @@
                                     <input type="text" name="item_description[<?= $lang['id'] ?>][description]"
                                            class="form-control" id="<?= $lang['id'] ?>_description"
                                            placeholder="Description"
-                                           value="<?= get_field_array_value('item_description', $lang['id'], 'description') ?>">
+                                           value="<?= h($item['item_description'][$lang['id']]['description']) ?>">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="<?= $lang['id'] ?>_keywords">Keywords</label>
                                     <input type="text" name="item_description[<?= $lang['id'] ?>][keywords]"
                                            class="form-control" id="<?= $lang['id'] ?>_keywords" placeholder="Keywords"
-                                           value="<?= get_field_array_value('item_description', $lang['id'], 'keywords') ?>">
+                                           value="<?= h($item['item_description'][$lang['id']]['keywords']) ?>">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="<?= $lang['id'] ?>_excerpt" class="required">Excerpt</label>
                                     <input type="text" name="item_description[<?= $lang['id'] ?>][excerpt]"
                                            class="form-control" id="<?= $lang['id'] ?>_excerpt" placeholder="Excerpt"
-                                           value="<?= get_field_array_value('item_description', $lang['id'], 'excerpt') ?>">
+                                           value="<?= h($item['item_description'][$lang['id']]['excerpt']) ?>">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="<?= $lang['id'] ?>_content">Content</label>
                                     <textarea name="item_description[<?= $lang['id'] ?>][content]"
                                               class="form-control editor" id="<?= $lang['id'] ?>_content" rows="3"
-                                              placeholder="Content"><?= get_field_array_value('item_description', $lang['id'], 'content') ?></textarea>
+                                              placeholder="Content"><?= h($item['item_description'][$lang['id']]['content']) ?></textarea>
                                 </div>
 
                             </div>

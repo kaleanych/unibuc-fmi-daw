@@ -20,8 +20,16 @@ class AppController extends Controller
     {
         parent::__construct($route);
 
-        if (!User::isAdmin() && $route['action'] != 'login-admin') {
+        if (!User::canAdmin() && $route['action'] != 'login-admin') {
             redirect(ADMIN_URL . '/user/login-admin');
+        }
+
+        if (!User::isAdmin() &&
+            (
+                !in_array($route['controller'], ['Category', 'Author', 'Item', 'Order', 'User'])
+                || ($route['controller'] == 'User' && in_array($route['action'], ['view', 'edit']) && (get('id', 'i') != $_SESSION['user']['id']))
+            )) {
+            redirect(ADMIN_URL . '/order');
         }
 
         new AppModel();
