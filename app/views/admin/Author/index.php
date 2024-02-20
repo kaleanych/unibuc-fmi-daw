@@ -3,6 +3,7 @@
 
     <div class="card-header">
         <a href="<?= ADMIN_URL ?>/author/add" class="btn btn-default btn-flat"><i class="fas fa-plus"></i> Add author</a>
+        <a href="<?= ADMIN_URL ?>/author/export" class="btn btn-info btn-flat"><i class="fas fa-file-export"></i> Export</a>
     </div>
 
     <div class="card-body">

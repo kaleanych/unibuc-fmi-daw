@@ -17,18 +17,22 @@ class Author extends AppModel
         return sprintf($fsql, "IFNULL(b.count_books, 0) AS count_books", "LEFT JOIN (SELECT author_id, COUNT(id) as count_books FROM items GROUP BY author_id) b ON b.author_id=ad.author_id");
     }
 
-    public function getAuthors($lang, $start, $per_page): array
+    public function getAuthors($lang, $start, $per_page, $sort = null): array
     {
         $sort_values = [
             'name_asc' => 'ORDER BY author_name ASC',
             'name_desc' => 'ORDER BY author_name DESC',
-            'count_books_asc' => 'ORDER BY count_books, author_name ASC',
-            'count_books_desc   ' => 'ORDER BY count_books, author_name DESC',
+            'count_books_asc' => 'ORDER BY count_books ASC, author_name ASC',
+            'count_books_desc' => 'ORDER BY count_books DESC, author_name ASC',
         ];
         $order_by = '';
         if (isset($_GET['sort']) && array_key_exists($_GET['sort'], $sort_values)) {
-            $order_by = $sort_values[$_GET['sort']];
+            $sort = $_GET['sort'];
         }
+        if ($sort) {
+            $order_by = $sort_values[$sort];
+        }
+
         return R::getAll(self::addCountBooksSQL("SELECT a.*, ad.name AS author_name, %s FROM authors a JOIN author_descriptions ad on a.id = ad.author_id %s WHERE ad.language_id = ? AND a.status = 1 $order_by LIMIT $start, $per_page"), [$lang['id']]);
     }
 

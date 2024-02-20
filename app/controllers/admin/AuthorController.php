@@ -5,6 +5,7 @@ namespace app\controllers\admin;
 
 
 use app\models\admin\Author;
+use Dompdf\Dompdf;
 use RedBeanPHP\R;
 use wfm\App;
 use wfm\Pagination;
@@ -91,6 +92,22 @@ class AuthorController extends AppController
         $title = 'Edit author';
         $this->setMeta("Admin :: {$title}");
         $this->set(compact('title', 'author'));
+    }
+
+    public function exportAction() {
+
+        $authors = (new \app\models\Author)->getAuthors(App::$app->getProperty('language'), 0, 100, 'count_books_desc');
+        $title = "Top 100 Authors";
+
+        $dompdf = new Dompdf();
+
+        ob_start();
+        require \APP . "/views/admin/Author/export.php";
+        $content = ob_get_clean();
+
+        $dompdf->loadHtml($content);
+        $dompdf->render();
+        $dompdf->stream();
     }
 
 }
