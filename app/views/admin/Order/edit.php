@@ -31,27 +31,27 @@
                 <div class="table-responsive">
                     <table class="table text-start table-striped">
                         <tr>
-                            <td>Order number</td>
+                            <td style="width:50%;">Order number</td>
                             <td><?= $order['id'] ?></td>
                         </tr>
                         <tr>
-                            <td>Status</td>
+                            <td style="width:50%;">Status</td>
                             <td><?= $order['status'] ? 'Done' : 'New' ?></td>
                         </tr>
                         <tr>
-                            <td>Created</td>
+                            <td style="width:50%;">Created</td>
                             <td><?= $order['created_at'] ?></td>
                         </tr>
                         <tr>
-                            <td>Updated</td>
+                            <td style="width:50%;">Updated</td>
                             <td><?= $order['updated_at'] ?></td>
                         </tr>
                         <tr>
-                            <td>Total</td>
+                            <td style="width:50%;">Total</td>
                             <td><?= $order['total'] ?></td>
                         </tr>
                         <tr>
-                            <td>Note</td>
+                            <td style="width:50%;">Note</td>
                             <td><?= $order['note'] ?></td>
                         </tr>
                     </table>
@@ -65,21 +65,21 @@
                 <div class="table-responsive">
                     <table class="table text-start table-striped">
                         <tr>
-                            <td>Name</td>
+                            <td style="width:50%;">Name</td>
                             <td>
                                 <?= $order['user_name'] ?>
                             </td>
                         </tr>
                         <tr>
-                            <td>Email</td>
+                            <td style="width:50%;">Email</td>
                             <td><?= $order['user_email'] ?></td>
                         </tr>
                         <tr>
-                            <td>Phone</td>
+                            <td style="width:50%;">Phone</td>
                             <td><?= $order['user_phone_number'] ?></td>
                         </tr>
                         <tr>
-                            <td>Address</td>
+                            <td style="width:50%;">Address</td>
                             <td><?= $order['user_address'] ?></td>
                         </tr>
                     </table>
@@ -92,6 +92,7 @@
         <?php else: ?>
             <a href="<?= ADMIN_URL ?>/order/edit?id=<?= $order['id'] ?>&status=0" class="btn btn-danger btn-flat">Status to New</a>
         <?php endif; ?>
+        <a href="<?= ADMIN_URL ?>/order/export?id=<?= $order['id'] ?>" class="btn btn-info btn-flat">Export</a>
 
     </div>
 </div>

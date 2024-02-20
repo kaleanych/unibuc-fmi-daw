@@ -4,6 +4,7 @@
 namespace app\controllers\admin;
 
 use app\models\admin\Order;
+use Dompdf\Dompdf;
 use RedBeanPHP\R;
 use wfm\Pagination;
 
@@ -51,4 +52,24 @@ class OrderController extends AppController
         $this->set(compact('title', 'order', 'order_items'));
     }
 
+    public function exportAction() {
+        $id = get('id');
+
+        $order = $this->model->getOrder($id);
+        if (!$order) {
+            throw new \Exception('Order not found', 404);
+        }
+        $order_items = $this->model->getOrderItems($id);
+        $title = "Order № {$id}";
+
+        $dompdf = new Dompdf();
+
+        ob_start();
+        require \APP . "/views/admin/Order/view.php";
+        $content = ob_get_clean();
+
+        $dompdf->loadHtml($content);
+        $dompdf->render();
+        $dompdf->stream();
+    }
 }

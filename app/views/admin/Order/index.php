@@ -12,6 +12,7 @@
                         <th>Created</th>
                         <th>Updated</th>
                         <th>Total</th>
+                        <td width="50"><i class="fas fa-file-export"></i></th>
                         <td width="50"><i class="fas fa-pencil-alt"></i></td>
                     </tr>
                     </thead>
@@ -25,6 +26,11 @@
                             <td><?= $order['created_at'] ?></td>
                             <td><?= $order['updated_at'] ?></td>
                             <td><?= $order['total'] ?></td>
+                            <td width="50">
+                                <a class="btn btn-info btn-sm" href="<?= ADMIN_URL ?>/order/export?id=<?= $order['id'] ?>">
+                                    <i class="fas fa-file-export"></i>
+                                </a>
+                            </td>
                             <td width="50">
                                 <a class="btn btn-info btn-sm" href="<?= ADMIN_URL ?>/order/edit?id=<?= $order['id'] ?>">
                                     <i class="fas fa-pencil-alt"></i>

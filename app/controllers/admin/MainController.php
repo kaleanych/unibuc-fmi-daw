@@ -20,5 +20,4 @@ class MainController extends AppController
         $this->setMeta('Admin :: Dashboard');
         $this->set(compact('title', 'orders', 'new_orders', 'users', 'items'));
     }
-
 }
