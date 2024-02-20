@@ -35,23 +35,23 @@
                             <td><?= $order['id'] ?></td>
                         </tr>
                         <tr>
-                            <td style="width:50%;">Status</td>
+                            <td>Status</td>
                             <td><?= $order['status'] ? 'Done' : 'New' ?></td>
                         </tr>
                         <tr>
-                            <td style="width:50%;">Created</td>
+                            <td>Created</td>
                             <td><?= $order['created_at'] ?></td>
                         </tr>
                         <tr>
-                            <td style="width:50%;">Updated</td>
+                            <td>Updated</td>
                             <td><?= $order['updated_at'] ?></td>
                         </tr>
                         <tr>
-                            <td style="width:50%;">Total</td>
+                            <td>Total</td>
                             <td><?= $order['total'] ?></td>
                         </tr>
                         <tr>
-                            <td style="width:50%;">Note</td>
+                            <td></td>Note</td>
                             <td><?= $order['note'] ?></td>
                         </tr>
                     </table>
@@ -71,15 +71,15 @@
                             </td>
                         </tr>
                         <tr>
-                            <td style="width:50%;">Email</td>
+                            <td>Email</td>
                             <td><?= $order['user_email'] ?></td>
                         </tr>
                         <tr>
-                            <td style="width:50%;">Phone</td>
+                            <td>Phone</td>
                             <td><?= $order['user_phone_number'] ?></td>
                         </tr>
                         <tr>
-                            <td style="width:50%;">Address</td>
+                            <td>Address</td>
                             <td><?= $order['user_address'] ?></td>
                         </tr>
                     </table>

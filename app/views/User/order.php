@@ -58,7 +58,7 @@
                         <div class="table-responsive">
                             <table class="table text-start table-striped">
                                 <tr>
-                                    <td><?php __('user_order_num'); ?></td>
+                                    <td style="width:50%;"><?php __('user_order_num'); ?></td>
                                     <td><?= $order[0]['order_id'] ?></td>
                                 </tr>
                                 <tr>
