@@ -5,6 +5,7 @@ namespace app\controllers;
 
 
 use app\models\AppModel;
+use app\models\Config;
 use app\models\Wishlist;
 use app\widgets\language\Language;
 use RedBeanPHP\R;
@@ -21,6 +22,7 @@ class AppController extends Controller
 
         App::$app->setProperty('languages', Language::getLanguages());
         App::$app->setProperty('language', Language::getLanguage(App::$app->getProperty('languages')));
+        App::$app->setProperty('config', Config::getAppConfig());
 
         $lang = App::$app->getProperty('language');
         \wfm\Language::load($lang['code'], $this->route);
