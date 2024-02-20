@@ -5,3 +5,4 @@ composer.lock
 vendor
 tmp
 public/uploads
+public/downloads
