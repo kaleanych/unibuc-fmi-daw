@@ -63,6 +63,7 @@ class UserController extends AppController
                     }
                 } else {
                     $_SESSION['errors'] = 'Error!';
+                    $_SESSION['form_data'] = $request;
                 }
             }
 
@@ -93,6 +94,7 @@ class UserController extends AppController
 
             if (!$this->model->validate($this->model->attributes) || !$this->model->checkEmail($user)) {
                 $this->model->getErrors();
+                $_SESSION['form_data'] = $request;
             } else {
                 if (!empty($this->model->attributes['password'])) {
                     $this->model->attributes['password'] = password_hash($this->model->attributes['password'], PASSWORD_DEFAULT);
@@ -104,6 +106,7 @@ class UserController extends AppController
                     }
                 } else {
                     $_SESSION['errors'] = 'Error!';
+                    $_SESSION['form_data'] = $request;
                 }
             }
 

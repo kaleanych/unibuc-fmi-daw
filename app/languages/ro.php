@@ -60,4 +60,7 @@ return [
     'tpl_count_books' => '%s books',
 
     'tpl_book_by' => 'by',
+
+    'tpl_users_visit_overall' => '%s user(s) all time',
+    'tpl_users_visit_today' => '%s user(s) today',
 ];

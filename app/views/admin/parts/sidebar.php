@@ -51,6 +51,13 @@ $avatar = User::isAdmin() ? 'avatar5.png' : 'avatar3.png';
                     </a>
                 </li>
 
+                    <li class="nav-item">
+                        <a href="<?= ADMIN_URL ?>/config/edit" class="nav-link<?=is_current_route('Config') ? ' active' : ''; ?>">
+                            <i class="nav-icon fas fa-wave-square"></i>
+                            <p>Config</p>
+                        </a>
+                    </li>
+
                 <li class="nav-item">
                     <a href="<?= ADMIN_URL ?>/page" class="nav-link<?=is_current_route('Page') ? ' active' : ''; ?>">
                         <i class="nav-icon far fa-file-alt"></i>
@@ -98,14 +105,14 @@ $avatar = User::isAdmin() ? 'avatar5.png' : 'avatar3.png';
 
                 <li class="nav-item">
                     <a href="<?= ADMIN_URL ?>/author" class="nav-link<?=is_current_route('Author') ? ' active' : ''; ?>">
-                        <i class="nav-icon fas fa-users-cog"></i>
+                        <i class="nav-icon fas fa-book-reader"></i>
                         <p>Authors</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a href="<?= ADMIN_URL ?>/item" class="nav-link<?=is_current_route('Item') ? ' active' : ''; ?>">
-                        <i class="nav-icon fas fa-barcode"></i>
+                        <i class="nav-icon fas fa-book-open"></i>
                         <p>Items</p>
                     </a>
                 </li>

@@ -44,4 +44,20 @@ class AppModel extends Model
         }
         return false;
     }
+
+    public static function getAnalytics(): array
+    {
+        $data = [];
+
+        $nb_users_overall = R::getCell("SELECT COUNT(DISTINCT ip_address) FROM analytics WHERE uri = ?", [
+            $_SERVER['REQUEST_URI']
+        ]);
+        $nb_users_today = R::getCell("SELECT COUNT(DISTINCT ip_address) FROM analytics WHERE uri = ? AND date_format(visit_time, '%Y-%m-%d') = ?", [
+            $_SERVER['REQUEST_URI'],
+            date('Y-m-d')
+        ]);
+        $data['nb_users_overall'] = $nb_users_overall;
+        $data['nb_users_today'] = $nb_users_today;
+        return $data;
+    }
 }

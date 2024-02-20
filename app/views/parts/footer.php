@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Config;
 use wfm\View;
 
 /** @var $this View */
@@ -12,21 +13,21 @@ use wfm\View;
             <div class="col-sm-4">
                 <div class="service-item text-center">
                     <p class="text-center"><i class="fas fa-book"></i></p>
-                    <p><?php __('tpl_get_a_book');?></p>
+                    <p><?php __('tpl_get_a_book'); ?></p>
                 </div>
             </div>
 
             <div class="col-sm-4">
                 <div class="service-item text-center">
                     <p class="text-center"><i class="fas fa-book-open"></i></p>
-                    <p><?php __('tpl_open_the_book');?></p>
+                    <p><?php __('tpl_open_the_book'); ?></p>
                 </div>
             </div>
 
             <div class="col-sm-4">
                 <div class="service-item text-center">
                     <p class="text-center"><i class="fas fa-book-reader"></i></p>
-                    <p><?php __('tpl_read_the_book');?></p>
+                    <p><?php __('tpl_read_the_book'); ?></p>
                 </div>
             </div>
 
@@ -44,29 +45,36 @@ use wfm\View;
                         'class' => 'list-unstyled',
                         'prepend' => '<li><a href="' . base_url() . '">' . ___('tpl_home_link') . '</a></li>',
                     ]) ?>
-                    <a href="<?=(base_url().'main/top100');?>"><?php __('tpl_top_goodreads_books');?></a>
+                    <a href="<?= (base_url() . 'main/top100'); ?>"><?php __('tpl_top_goodreads_books'); ?></a>
                 </div>
 
                 <div class="col-md-3 col-6">
                     <h4><?php __('tpl_work_hours'); ?></h4>
-                    <ul class="list-unstyled">
-                        <li>Bucuresti</li>
-                        <li>luni-duminica: 9:00 - 18:00</li>
-                        <li>fara intreruper</li>
-                    </ul>
                 </div>
 
                 <div class="col-md-3 col-6">
                     <h4><?php __('tpl_contacts'); ?></h4>
-                    <a href="<?=(base_url().'contact/feedback');?>"><?php __('tpl_feedback');?></a>
+                    <a href="<?= (base_url() . 'contact/feedback'); ?>"><?php __('tpl_feedback'); ?></a>
                 </div>
 
                 <div class="col-md-3 col-6">
                     <h4><?php __('tpl_we_online'); ?></h4>
                     <div class="footer-icons">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a target="_blank" href="<?= Config::getConfig('facebook'); ?>"><i
+                                    class="fab fa-facebook-f"></i></a>
+                        <a target="_blank" href="<?= Config::getConfig('youtube'); ?>"><i
+                                    class="fab fa-youtube"></i></a>
+                        <a target="_blank" href="<?= Config::getConfig('instagram'); ?>"><i
+                                    class="fab fa-instagram"></i></a>
+                        <a target="_blank" href="https://wa.me/<?= Config::getConfig('whatsapp'); ?>"><i
+                                    class="fab fa-whatsapp"></i></a>
+                    </div>
+                    <div class="analytics mt-5 text-warning">
+                        <?php
+                        $analytics = \app\models\AppModel::getAnalytics();
+                        ?>
+                            <div><i class="fa fa-users"></i> <?php echo sprintf(___('tpl_users_visit_overall'), $analytics['nb_users_overall']); ?></div>
+                            <div><i class="fa fa-users"></i> <?php echo sprintf(___('tpl_users_visit_today'), $analytics['nb_users_today']); ?></div>
                     </div>
                 </div>
             </div>

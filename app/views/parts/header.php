@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Config;
 use wfm\App;
 use wfm\View;
 
@@ -30,7 +31,8 @@ use wfm\View;
             <div class="row justify-content-between">
                 <div class="col">
                     <a href="tel:123456">
-                        <span class="icon-phone">&#9743;</span> 123456
+                        <span class="icon-phone">&#9743;</span> <a
+                                href="tel:<?= ($phone_number = Config::getConfig('phone_number')); ?>"><?= $phone_number; ?></a>
                     </a>
                 </div>
                 <div class="col text-end icons">
@@ -56,11 +58,17 @@ use wfm\View;
                         </a>
                         <ul class="dropdown-menu">
                             <?php if (empty($_SESSION['user'])): ?>
-                                <li><a class="dropdown-item" href="user/login"><?php __('tpl_login'); ?></a></li>
-                                <li><a class="dropdown-item" href="user/signup"><?php __('tpl_signup'); ?></a></li>
+                                <li><a class="dropdown-item" href="user/login"><i
+                                                class="nav-icon fas fa-sign-in-alt"></i> <?php __('tpl_login'); ?></a>
+                                </li>
+                                <li><a class="dropdown-item" href="user/signup"><i
+                                                class="nav-icon fas fa-sign"></i> <?php __('tpl_signup'); ?></a></li>
                             <?php else: ?>
-                                <li><a class="dropdown-item" href="user/account"><?php __('tpl_account'); ?></a></li>
-                                <li><a class="dropdown-item" href="user/logout"><?php __('tpl_logout'); ?></a></li>
+                                <li><a class="dropdown-item" href="user/account"><i
+                                                class="nav-icon fas fa-user"></i> <?php __('tpl_account'); ?></a></li>
+                                <li><a class="dropdown-item" href="user/logout"><i
+                                                class="nav-icon fas fa-sign-out-alt"></i> <?php __('tpl_logout'); ?></a>
+                                </li>
                             <?php endif; ?>
                         </ul>
                     </div>
