@@ -7,8 +7,8 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th>Denumire</th>
-                <th>Descriere</th>
+                <th>Name</th>
+                <th>Description</th>
                 <td style="width:50px"><i class="far fa-trash-alt"></i></td>
             </tr>
             </thead>
