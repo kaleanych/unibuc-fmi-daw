@@ -107,7 +107,7 @@ class AuthorController extends AppController
 
         $dompdf->loadHtml($content);
         $dompdf->render();
-        $dompdf->stream();
+        $dompdf->stream('top_authors.pdf');
     }
 
 }

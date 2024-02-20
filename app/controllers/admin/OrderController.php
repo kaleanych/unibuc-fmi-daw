@@ -70,6 +70,6 @@ class OrderController extends AppController
 
         $dompdf->loadHtml($content);
         $dompdf->render();
-        $dompdf->stream();
+        $dompdf->stream(sprintf('order_%s.pdf', $id));
     }
 }
