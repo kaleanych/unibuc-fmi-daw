@@ -52,7 +52,7 @@ class Cart extends AppModel
         unset($_SESSION['cart'][$id]);
     }
 
-    public static function translate_cart($lang)
+    public static function translateCart($lang)
     {
         if (empty($_SESSION['cart'])) {
             return;

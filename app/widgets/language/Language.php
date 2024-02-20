@@ -40,16 +40,9 @@ class Language
         $lang = App::$app->getProperty('lang');
         if ($lang && array_key_exists($lang, $languages)) {
             $key = $lang;
-            //} elseif (!$lang) {
         }else {
             $key = key($languages);
         }
-//        else {
-//            $lang = h($lang);
-//            print_r(key($languages));
-//            die;
-//            throw new \Exception("Language {$lang} not found", 404);
-//        }
 
         App::$app->setProperty('lang', $key);
 

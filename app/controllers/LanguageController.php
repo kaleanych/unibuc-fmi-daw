@@ -15,21 +15,25 @@ class LanguageController extends AppController
         $lang = get('lang', 's');
         if ($lang) {
             if (array_key_exists($lang, App::$app->getProperty('languages'))) {
-                $url = trim(str_replace(SITE_URL, '', $_SERVER['HTTP_REFERER']), '/');
+                if (isset($_SERVER['HTTP_REFERER'])) {
+                    $url = trim(str_replace(SITE_URL, '', $_SERVER['HTTP_REFERER']), '/');
+                } else {
+                    $url = '';
+                }
                 $url_parts = explode('/', $url, 2);
                 if (array_key_exists($url_parts[0], App::$app->getProperty('languages'))) {
-                    if ($lang != App::$app->getProperty('language')['code']) {
+                    //if ($lang != App::$app->getProperty('language')['code']) {
                         $url_parts[0] = $lang;
-                    } else {
-                        array_shift($url_parts);
-                    }
+                    //} else {
+                        //array_shift($url_parts);
+                    //  }
                 } else {
-                    if ($lang != App::$app->getProperty('language')['code']) {
+                    //if ($lang != App::$app->getProperty('language')['code']) {
                         array_unshift($url_parts, $lang);
-                    }
+                    //}
                 }
 
-                Cart::translate_cart(App::$app->getProperty('languages')[$lang]);
+                Cart::translateCart(App::$app->getProperty('languages')[$lang]);
 
                 $url = SITE_URL . '/' . implode('/', $url_parts);
                 redirect($url);
