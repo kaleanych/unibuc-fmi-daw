@@ -26,8 +26,8 @@ class Pagination
     {
         $back = null;
         $forward = null;
-        $startpage = null;
-        $endpage = null;
+        $start_page = null;
+        $end_page = null;
         $page2left = null;
         $page1left = null;
         $page2right = null;
@@ -43,14 +43,14 @@ class Pagination
             $forward = "<li class='page-item'><a class='page-link' href='" . $this->getLink($this->currentPage + 1) . "'>&gt;</a></li>";
         }
 
-        // $startpage
+        // $start_page
         if ($this->currentPage > 3) {
-            $startpage = "<li class='page-item'><a class='page-link' href='" . $this->getLink(1) . "'>&laquo;</a></li>";
+            $start_page = "<li class='page-item'><a class='page-link' href='" . $this->getLink(1) . "'>&laquo;</a></li>";
         }
 
-        // $endpage
+        // $end_page
         if ($this->currentPage < ($this->countPages - 2)) {
-            $endpage = "<li class='page-item'><a class='page-link' href='" . $this->getLink($this->countPages) . "'>&raquo;</a></li>";
+            $end_page = "<li class='page-item'><a class='page-link' href='" . $this->getLink($this->countPages) . "'>&raquo;</a></li>";
         }
 
         // $page2left
@@ -73,7 +73,7 @@ class Pagination
             $page2right = "<li class='page-item'><a class='page-link' href='" . $this->getLink($this->currentPage + 2) . "'>" . ($this->currentPage + 2) . "</a></li>";
         }
 
-        return '<nav aria-label="Page navigation example"><ul class="pagination">' . $startpage . $back . $page2left . $page1left . '<li class="page-item active"><a class="page-link">' . $this->currentPage . '</a></li>' . $page1right . $page2right . $forward . $endpage . '</ul></nav>';
+        return '<nav aria-label="Page navigation example"><ul class="pagination">' . $start_page . $back . $page2left . $page1left . '<li class="page-item active"><a class="page-link">' . $this->currentPage . '</a></li>' . $page1right . $page2right . $forward . $end_page . '</ul></nav>';
     }
 
     public function getLink($page)

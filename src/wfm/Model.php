@@ -47,13 +47,16 @@ abstract class Model
 
     public function getErrors()
     {
-        $errors = '<ul>';
-        foreach ($this->errors as $error) {
-            foreach ($error as $item) {
-                $errors .= "<li>{$item}</li>";
+        $errors = '';
+        if (count($this->errors) > 0) {
+            $errors .= '<ul>';
+            foreach ($this->errors as $error) {
+                foreach ($error as $item) {
+                    $errors .= "<li>{$item}</li>";
+                }
             }
+            $errors .= '</ul>';
         }
-        $errors .= '</ul>';
         $_SESSION['errors'] = $errors;
     }
 

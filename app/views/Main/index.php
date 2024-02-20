@@ -64,33 +64,3 @@ use wfm\View;
         </div>
     </section>
 <?php endif; ?>
-<hr>
-<section class="services">
-    <div class="container">
-        <div class="row">
-
-            <div class="col-sm-4">
-                <div class="service-item text-center">
-                    <p class="text-center"><i class="fas fa-book"></i></p>
-                    <p><?php __('tpl_get_a_book');?></p>
-                </div>
-            </div>
-
-            <div class="col-sm-4">
-                <div class="service-item text-center">
-                    <p class="text-center"><i class="fas fa-book-open"></i></p>
-                    <p><?php __('tpl_open_the_book');?></p>
-                </div>
-            </div>
-
-            <div class="col-sm-4">
-                <div class="service-item text-center">
-                    <p class="text-center"><i class="fas fa-book-reader"></i></p>
-                    <p><?php __('tpl_read_the_book');?></p>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-

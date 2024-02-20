@@ -25,14 +25,28 @@ class UserController extends AppController
             }
             unset($this->model->attributes['email']);
 
-            if (!$this->model->validate($this->model->attributes)) {
+            $captcha = '';
+            if (isset($_POST['g-recaptcha-response'])) {
+                $captcha = $_POST['g-recaptcha-response'];
+            }
+            $secretKey = App::$app->getProperty("captcha_secret_key");
+            $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($secretKey) .  '&response=' . urlencode($captcha);
+            $response = file_get_contents($url);
+
+            $responseKeys = json_decode($response,true);
+
+            if (!$this->model->validate($this->model->attributes) || !$responseKeys["success"]) {
                 $this->model->getErrors();
+                if (!$responseKeys["success"]) {
+                    $_SESSION['errors'] .= '<ul class="m-0"><li>You are not a human!</li></ul>';
+                }
+                $_SESSION['form_data'] = $this->model->attributes;
             } else {
                 if (!empty($this->model->attributes['password'])) {
                     $this->model->attributes['password'] = password_hash($this->model->attributes['password'], PASSWORD_DEFAULT);
                 }
 
-                if ($this->model->update('user', $_SESSION['user']['id'])) {
+                if ($this->model->update('users', $_SESSION['user']['id'])) {
                     $_SESSION['success'] = ___('user_credentials_success');
                     foreach ($this->model->attributes as $k => $v) {
                         if (!empty($v) && $k != 'password') {
@@ -57,9 +71,24 @@ class UserController extends AppController
 
         if (!empty($_POST)) {
             $this->model->load();
-            if (!$this->model->validate($this->model->attributes) || !$this->model->checkUnique()) {
+
+            $captcha = '';
+            if (isset($_POST['g-recaptcha-response'])) {
+                $captcha = $_POST['g-recaptcha-response'];
+            }
+            $secretKey = App::$app->getProperty("captcha_secret_key");
+            $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($secretKey) .  '&response=' . urlencode($captcha);
+            $response = file_get_contents($url);
+
+            $responseKeys = json_decode($response,true);
+
+            if (!$this->model->validate($this->model->attributes) || !$this->model->checkUnique()  || !$responseKeys["success"]) {
                 $this->model->getErrors();
+                if (!$responseKeys["success"]) {
+                    $_SESSION['errors'] .= '<ul class="m-0"><li>You are not a human!</li></ul>';
+                }
                 $_SESSION['form_data'] = $this->model->attributes;
+                redirect(base_url() . 'user/signup');
             } else {
                 $this->model->attributes['password'] = password_hash($this->model->attributes['password'], PASSWORD_DEFAULT);
                 $this->model->attributes['hash'] = hash('sha256', uniqid());
@@ -67,6 +96,7 @@ class UserController extends AppController
                     $_SESSION['success'] = ___('user_signup_success_register');
                 } else {
                     $_SESSION['errors'] = ___('user_signup_error_register');
+                    redirect(base_url() . 'user/signup');
                 }
             }
             redirect(base_url() . 'user/login');
@@ -82,7 +112,17 @@ class UserController extends AppController
         }
 
         if (!empty($_POST)) {
-            if ($this->model->login()) {
+            $captcha = '';
+            if (isset($_POST['g-recaptcha-response'])) {
+                $captcha = $_POST['g-recaptcha-response'];
+            }
+            $secretKey = App::$app->getProperty("captcha_secret_key");
+            $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($secretKey) .  '&response=' . urlencode($captcha);
+            $response = file_get_contents($url);
+
+            $responseKeys = json_decode($response,true);
+
+            if ($responseKeys["success"] && $this->model->login()) {
                 $_SESSION['success'] = ___('user_login_success_login');
                 redirect(base_url());
             } else {
@@ -102,12 +142,12 @@ class UserController extends AppController
         redirect(base_url() . 'user/login');
     }
 
-    public function cabinetAction()
+    public function accountAction()
     {
         if (!User::checkAuth()) {
             redirect(base_url() . 'user/login');
         }
-        $this->setMeta(___('tpl_cabinet'));
+        $this->setMeta(___('tpl_account'));
     }
 
     public function ordersAction()

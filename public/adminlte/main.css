@@ -43,6 +43,7 @@ a:hover {
 
 .item-img-upload {
     position: relative;
+    max-width: 250px;
 }
 
 .gallery-image .item-img-upload {

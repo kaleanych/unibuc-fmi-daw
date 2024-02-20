@@ -4,7 +4,7 @@ use wfm\View;
 ?>
 <?php $this->getPart('parts/header'); ?>
 
-<div class="container">
+<div class="container mb-2">
     <div class="row">
         <div class="col">
             <?php if (!empty($_SESSION['errors'])): ?>

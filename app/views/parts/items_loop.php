@@ -5,7 +5,7 @@
     <div class="col-lg-4 col-sm-6 mb-3">
         <div class="item-card">
             <div class="item-tumb">
-                <a href="item/<?= $item['slug'] ?>"><img src="<?= SITE_URL . $item['img'] ?>" alt=""></a>
+                <a href="item/<?= $item['slug'] ?>"><img src="<?php display_image($item['img']) ?>" alt=""></a>
             </div>
             <div class="item-details">
                     <h4><a href="item/<?= $item['slug'] ?>"><?= $item['title'] ?></a></h4>

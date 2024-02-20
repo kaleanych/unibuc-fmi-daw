@@ -19,19 +19,26 @@
 
         <div class="col-lg-12 category-content">
             <h3 class="section-title"><?= $author['name'] ?></h3>
-
-            <?php if (!empty($author['bio'])): ?>
-                <div class="category-desc">
+            <div class="category-desc">
+                <ul class="thumbnails list-unstyled clearfix float-start">
+                    <li class=" thumb-additional" style="max-width: 250px;">
+                        <a class="thumbnail" href="<?php display_image($author['photo']) ?>" data-effect="mfp-zoom-in">
+                            <img src="<?php display_image($author['photo']) ?>" alt="">
+                        </a>
+                    </li>
+                </ul>
+                <?php if (!empty($author['bio'])): ?>
                     <?= $author['bio'] ?>
-                </div>
-                <hr>
-            <?php endif; ?>
+                <?php endif; ?>
+            </div>
+            <hr>
 
             <?php if ($pagination->countPages > 1 || count($items) > 1): ?>
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="input-group mb-3">
-                            <label class="input-group-text" for="input-sort"><?php __('author_view_sort'); ?>:</label>
+                            <label class="input-group-text" for="input-sort"><?php __('author_view_sort'); ?>
+                                :</label>
                             <select class="form-select" id="input-sort">
                                 <option selected="" disabled><?php __('author_view_sort_by_default'); ?></option>
 

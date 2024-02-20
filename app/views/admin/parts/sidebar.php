@@ -79,12 +79,14 @@
                     </a>
                 </li>
 
+                <?php if (0):?>
                 <li class="nav-item">
                     <a href="<?= ADMIN_URL ?>/download" class="nav-link">
                         <i class="nav-icon fas fa-file-upload"></i>
                         <p>Files</p>
                     </a>
                 </li>
+                <?php endif;?>
 
                 <li class="nav-item">
                     <a href="<?= ADMIN_URL ?>/order" class="nav-link">

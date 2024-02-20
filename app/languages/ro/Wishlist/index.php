@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'wishlist_index_title' => 'Featured items list',
-    'wishlist_index_not_found' => 'Favorite list is empty',
+    'wishlist_index_title' => 'Wishlist',
+    'wishlist_index_not_found' => 'Wishlist is empty',
 ];

@@ -74,6 +74,7 @@ class Author extends AppModel
             $author = R::dispense('authors');
             $author->status = post('status') ? 1 : 0;
             $author->featured = post('hit') ? 1 : 0;
+            $author->photo = post('photo') ?: NO_IMAGE;
             $author_id = R::store($author);
             $author->slug = AppModel::createSlug('authors', 'slug', $request['author_description'][$lang]['name'], $author_id);
             R::store($author);
@@ -109,6 +110,7 @@ class Author extends AppModel
 
             $author->status = post('status') ? 1 : 0;
             $author->featured = post('featured') ? 1 : 0;
+            $author->photo = post('photo') ?: NO_IMAGE;
 
             $lang = App::$app->getProperty('language')['id'];
             $author->slug = AppModel::createSlug('authors', 'slug', $request['author_description'][$lang]['name'], $id);
@@ -138,7 +140,7 @@ class Author extends AppModel
     public function getEmptyAuthor(): array
     {
         $lang_codes = App::$app->getProperty('lang_codes');
-        $author = ['status' => 1, 'featured' => 0];
+        $author = ['status' => 1, 'featured' => 0, 'photo' => ''];
         $author['author_description'] = array_combine(
             array_keys($lang_codes),
             array_fill(0, count($lang_codes), [
@@ -155,6 +157,16 @@ class Author extends AppModel
         $author = R::getRow("SELECT a.* FROM authors a WHERE a.id = ?", [$id]);
         $author['author_description'] =  R::getAssoc("SELECT ad.language_id, ad.* FROM author_descriptions ad WHERE ad.author_id = ?", [$id]);
         return $author;
+    }
+
+    public static function getAllAuthors()
+    {
+        $lang = App::$app->getProperty('language');
+        $authors = R::getAssoc("SELECT a.*, ad.* FROM authors a 
+                        JOIN author_descriptions ad
+                        ON a.id = ad.author_id
+                        WHERE ad.language_id = ? ORDER BY ad.name ASC", [$lang['id']]);
+        return $authors;
     }
 
 }

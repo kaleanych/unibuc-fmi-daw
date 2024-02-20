@@ -16,11 +16,15 @@ use wfm\View;
 <div class="container py-3">
     <div class="row">
 
-        <div class="col-md-4 order-md-2">
+        <div class="col-md-6 order-md-2">
 
             <h1><?= $item['title'] ?></h1>
             <p>
-                <?php __('tpl_book_by');?> <a href="author/<?= $item['author_slug'] ?>"><?= $item['author_name'];?></a>
+                <?php __('tpl_book_by'); ?> <a
+                        href="author/<?= $item['author_slug'] ?>"><?= $item['author_name']; ?></a>
+            </p>
+            <p>
+                <?=$item['excerpt'];?>
             </p>
             <ul class="list-unstyled">
 
@@ -28,7 +32,7 @@ use wfm\View;
 
             <div id="item">
                 <div class="input-group mb-3">
-                    <input id="input-quantity" type="text" class="form-control" name="quantity" value="1">
+                    <input id="input-quantity" type="number" class="form-control" name="quantity" value="1">
                     <button class="btn btn-danger add-to-cart" type="button"
                             data-id="<?= $item['id'] ?>"><?php __('item_view_borrow'); ?></button>
                 </div>
@@ -36,17 +40,20 @@ use wfm\View;
 
         </div>
 
-        <div class="col-md-8 order-md-1">
+        <div class="col-md-6 order-md-1">
 
             <ul class="thumbnails list-unstyled clearfix">
 
-                <li class="thumb-main text-center"><a class="thumbnail" href="<?= SITE_URL . $item['img'] ?>"
-                                                      data-effect="mfp-zoom-in"><img src="<?= SITE_URL . $item['img'] ?>"
-                                                                                     alt=""></a></li>
+                <li class="thumb-main text-center">
+                    <a class="thumbnail" href="<?= SITE_URL . $item['img'] ?>" data-effect="mfp-zoom-in">
+                        <img src="<?php display_image($item['img']) ?>" alt="">
+                    </a></li>
 
                 <?php if (!empty($gallery)): ?>
-                    <?php foreach ($gallery as $item): ?>
-                        <li class="thumb-additional"><a class="thumbnail" href="<?= SITE_URL . $item['img'] ?>" data-effect="mfp-zoom-in"><img src="<?= SITE_URL . $item['img'] ?>" alt=""></a>
+                    <?php foreach ($gallery as $gallery_item): ?>
+                        <li class="thumb-additional"><a class="thumbnail" href="<?= SITE_URL . $gallery_item['img'] ?>"
+                                                        data-effect="mfp-zoom-in"><img
+                                        src="<?= SITE_URL . $gallery_item['img'] ?>" alt=""></a>
                         </li>
                     <?php endforeach; ?>
                 <?php endif; ?>

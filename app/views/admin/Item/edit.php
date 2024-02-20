@@ -25,6 +25,16 @@
                 ]) ?>
             </div>
 
+            <div class="form-group">
+                <label for="author_id">Author</label>
+                <select class="form-select form-control" name="author_id" id="author_id">
+                    <option value=""></option>
+                    <?php foreach ($authors as $author_id => $author): ?>
+                        <option value="<?= $author_id; ?>" <?= ($author_id == $item[$key]['author_id'] ? 'selected="selected"' : ''); ?>><?= $author['name']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
@@ -41,7 +51,7 @@
                     </div>
                 </div>
             </div>
-
+            <hr>
             <div class="form-group">
                 <div class="custom-control custom-checkbox">
                     <input class="custom-control-input" type="checkbox" id="status"
@@ -58,26 +68,29 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-12">
+            <?php if (0): ?>
+                <div class="row">
+                    <div class="col-md-12">
 
-                    <div class="form-group">
-                        <label for="is_download">Link a file to make the item downloadable</label>
-                        <?php if (isset($item[$key]['download_id'])): ?>
-                            <p class="clear-download">
-                                <span class="btn btn-danger">Regular item</span>
-                            </p>
-                        <?php endif; ?>
-                        <select name="is_download" class="form-control select2 is-download" id="is_download" style="width: 100%;">
+                        <div class="form-group">
+                            <label for="is_download">Link a file to make the item downloadable</label>
                             <?php if (isset($item[$key]['download_id'])): ?>
-                                <option value="<?= $item[$key]['download_id'] ?>"
-                                        selected><?= $item[$key]['download_name'] ?></option>
+                                <p class="clear-download">
+                                    <span class="btn btn-danger">Regular item</span>
+                                </p>
                             <?php endif; ?>
-                        </select>
+                            <select name="is_download" class="form-control select2 is-download" id="is_download"
+                                    style="width: 100%;">
+                                <?php if (isset($item[$key]['download_id'])): ?>
+                                    <option value="<?= $item[$key]['download_id'] ?>"
+                                            selected><?= $item[$key]['download_name'] ?></option>
+                                <?php endif; ?>
+                            </select>
 
+                        </div>
                     </div>
                 </div>
-            </div>
+            <?php endif; ?>
 
             <div class="row">
                 <div class="col-md-12">
@@ -105,7 +118,6 @@
                 </div>
             </div>
 
-
             <div class="row">
                 <div class="col-md-12">
                     <div class="card card-outline card-success">
@@ -124,7 +136,7 @@
                                             <input type="hidden" name="gallery[]"
                                                    value="<?= $gallery_item ?>">
                                             <button class="del-img btn btn-app bg-danger"><i
-                                                    class="far fa-trash-alt"></i></button>
+                                                        class="far fa-trash-alt"></i></button>
                                         </div>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
@@ -165,7 +177,8 @@
                                 <div class="form-group">
                                     <label for="<?= $lang['id'] ?>_description">Description</label>
                                     <input type="text" name="item_description[<?= $lang['id'] ?>][description]"
-                                           class="form-control" id="<?= $lang['id'] ?>_description" placeholder="Description"
+                                           class="form-control" id="<?= $lang['id'] ?>_description"
+                                           placeholder="Description"
                                            value="<?= h($item[$lang['id']]['description']) ?>">
                                 </div>
 

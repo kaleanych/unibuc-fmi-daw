@@ -4,6 +4,7 @@ return [
     'tpl_information' => 'Informatia',
     'tpl_work_hours' => 'Orar',
     'tpl_contacts' => 'Contact',
+    'tpl_feedback' => 'Feedback',
     'tpl_we_online' => 'Suntem online',
     'tpl_search' => 'Cauta...',
     'tpl_home_link' => 'Acasa',
@@ -26,7 +27,7 @@ return [
     'tpl_login' => 'Autorizare',
     'tpl_signup' => 'Inregistrare',
     'tpl_logout' => 'Iesire',
-    'tpl_cabinet' => 'Cont',
+    'tpl_account' => 'Cont',
 
     'tpl_orders' => 'Comenzi',
     'tpl_orders_files' => 'Fisiere',

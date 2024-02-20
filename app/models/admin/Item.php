@@ -72,6 +72,7 @@ class Item extends AppModel
             // item
             $item = R::dispense('items');
             $item->category_id = @$request['category_id'] ? $request['category_id'] : null;
+            $item->author_id = @$request['author_id'] ? $request['author_id'] : null;
             $item->price = post('price', 'f');
             $item->old_price = post('old_price', 'f');
             $item->status = post('status') ? 1 : 0;
@@ -132,6 +133,7 @@ class Item extends AppModel
             }
 
             $item->category_id = @$request['category_id'] ? $request['category_id'] : null;
+            $item->author_id = @$request['author_id'] ? $request['author_id'] : null;
             $item->price = post('price', 'f');
             $item->old_price = post('old_price', 'f');
             $item->status = post('status') ? 1 : 0;
@@ -168,7 +170,7 @@ class Item extends AppModel
                 if ( (count($gallery) != count($request['gallery'])) || array_diff($gallery, $request['gallery']) || array_diff($request['gallery'], $gallery) ) {
                     R::exec("DELETE FROM item_gallery WHERE item_id = ?", [$id]);
                     $sql = "INSERT INTO item_gallery (item_id, img) VALUES ";
-                    foreach ($request['gallery'] as $item) {
+                    foreach ($request['gallery'] as $gallery_item) {
                         $sql .= "({$id}, ?),";
                     }
                     $sql = rtrim($sql, ',');

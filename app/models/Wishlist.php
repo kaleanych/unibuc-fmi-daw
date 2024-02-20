@@ -50,7 +50,7 @@ class Wishlist extends AppModel
         $wishlist = self::getWishlistIds();
         if ($wishlist) {
             $wishlist = implode(',', $wishlist);
-            return R::getAll("SELECT i.*, id.* FROM items i JOIN item_descriptions id on i.id = id.item_id WHERE i.status = 1 AND i.id IN ($wishlist) AND id.language_id = ? LIMIT 6", [$lang['id']]);
+            return R::getAll(Item::addAuthorSQL("SELECT i.*, id.*, %s FROM items i JOIN item_descriptions id on i.id = id.item_id %s WHERE i.status = 1 AND i.id IN ($wishlist) AND id.language_id = ? LIMIT 6"), [$lang['id'], $lang['id']]);
         }
         return [];
     }

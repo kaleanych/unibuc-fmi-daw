@@ -113,7 +113,7 @@ function display_form_field_valid(string $field_name, bool $for_input = true, st
             if ($for_input) {
                 echo $pre_spacing . ($is_form_field_valid ? 'is-valid' : 'is-invalid');
             } else {
-                echo $is_form_field_valid ? '' : $pre_spacing.'text-danger';
+                echo $is_form_field_valid ? '' : $pre_spacing . 'text-danger';
             }
         }
     }
@@ -133,4 +133,13 @@ function clear_form_session(): void
 function is_current_route($controller = null): bool
 {
     return Router::getRoute()['controller'] == $controller;
+}
+
+function display_image($img)
+{
+    if (empty($img) || ($img == NO_IMAGE)) {
+        echo SITE_URL . '/' . NO_IMAGE;
+    } else {
+        echo SITE_URL . $img;
+    }
 }

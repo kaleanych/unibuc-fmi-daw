@@ -27,7 +27,7 @@ return [
     'tpl_login' => 'Login',
     'tpl_signup' => 'Signup',
     'tpl_logout' => 'Logout',
-    'tpl_cabinet' => 'Cabinet',
+    'tpl_account' => 'Account',
 
     'tpl_orders' => 'Orders',
     'tpl_orders_files' => 'Files',

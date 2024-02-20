@@ -4,6 +4,9 @@
 <?php foreach ($authors as $author): ?>
     <div class="col-lg-4 col-sm-6 mb-3">
         <div class="item-card">
+            <div class="item-tumb">
+                <a href="author/<?= $author['slug'] ?>" class="text-left"><img src="<?php display_image($author['photo']) ?>" alt=""></a>
+            </div>
             <div class="item-details">
                 <h4><a href="author/<?= $author['slug'] ?>"><?= $author['name'] ?></a></h4>
                 <p>

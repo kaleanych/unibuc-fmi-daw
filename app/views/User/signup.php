@@ -48,6 +48,12 @@
                 </div>
 
                 <div class="col-md-6 offset-md-3">
+                    <hr>
+                    <div class="g-recaptcha" data-sitekey="6LcydncpAAAAAOryyTyPn2CPjOmkPGFu1J3iwe38"></div>
+                    <hr>
+                </div>
+
+                <div class="col-md-6 offset-md-3">
                     <button type="submit" class="btn btn-danger"><?php __('user_signup_signup_btn'); ?></button>
                 </div>
             </form>

@@ -2,7 +2,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-light p-2">
             <li class="breadcrumb-item"><a href="./"><i class="fas fa-home"></i></a></li>
-            <li class="breadcrumb-item"><a href="user/cabinet"><?php __('tpl_cabinet'); ?></a></li>
+            <li class="breadcrumb-item"><a href="user/account"><?php __('tpl_account'); ?></a></li>
             <li class="breadcrumb-item active"><?php __('user_files_title'); ?></li>
         </ol>
     </nav>
@@ -15,7 +15,7 @@
             <h1 class="section-title"><?php __('user_files_title'); ?></h1>
         </div>
 
-        <?php $this->getPart('parts/cabinet_sidebar'); ?>
+        <?php $this->getPart('parts/account_sidebar'); ?>
 
         <div class="col-md-9 order-md-1">
 

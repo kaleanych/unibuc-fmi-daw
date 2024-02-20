@@ -2,7 +2,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-light p-2">
             <li class="breadcrumb-item"><a href="./"><i class="fas fa-home"></i></a></li>
-            <li class="breadcrumb-item"><a href="user/cabinet"><?php __('tpl_cabinet'); ?></a></li>
+            <li class="breadcrumb-item"><a href="user/account"><?php __('tpl_account'); ?></a></li>
             <li class="breadcrumb-item active"><?php __('user_orders_title'); ?></li>
         </ol>
     </nav>
@@ -15,7 +15,7 @@
             <h1 class="section-title"><?php __('user_orders_title'); ?></h1>
         </div>
 
-        <?php $this->getPart('parts/cabinet_sidebar'); ?>
+        <?php $this->getPart('parts/account_sidebar'); ?>
 
         <div class="col-md-9 order-md-1">
 
@@ -27,7 +27,9 @@
                         <tr>
                             <th scope="col"><?php __('user_orders_num'); ?></th>
                             <th scope="col"><?php __('user_orders_status'); ?></th>
-                            <th scope="col"><?php __('user_orders_total'); ?></th>
+                            <?php if (0):?>
+                                <th scope="col"><?php __('user_orders_total'); ?></th>
+                            <?php endif;?>
                             <th scope="col"><?php __('user_orders_created'); ?></th>
                             <th scope="col"><?php __('user_orders_updated'); ?></th>
                             <th scope="col"><i class="far fa-eye"></i></a></th>
@@ -38,7 +40,9 @@
                             <tr <?php if ($order['status']) echo 'class="table-info"' ?>>
                                 <td><?= $order['id'] ?></td>
                                 <td><?php __("user_order_status_{$order['status']}"); ?></td>
+                                <?php if (0):?>
                                 <td>s<?= $order['total'] ?></td>
+                                <?php endif;?>
                                 <td><?= $order['created_at'] ?></td>
                                 <td><?= $order['updated_at'] ?></td>
                                 <td><a href="user/order?id=<?= $order['id'] ?>"><i class="far fa-eye"></i></a></td>

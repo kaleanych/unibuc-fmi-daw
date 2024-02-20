@@ -4,7 +4,33 @@
     <div class="card-body">
 
         <form action="" method="post">
-
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-outline card-success">
+                        <div class="card-header">
+                            <h3 class="card-title">Photo</h3>
+                        </div>
+                        <div class="card-body">
+                            <button class="btn btn-success" id="add-base-img" onclick="popupPhoto(); return false;">
+                                Upload
+                            </button>
+                            <div id="base-img-output" class="upload-images base-image">
+                                <?php if (isset($author['photo']) && $author['photo']):?>
+                                <div class="item-img-upload">
+                                    <img src="<?= $author['photo'] ?>" alt="">
+                                    <input type="hidden" name="photo" value="<?= $author['photo'] ?>">
+                                    <?php if ($author['photo'] != NO_IMAGE): ?>
+                                        <button class="del-img btn btn-app bg-danger"><i class="far fa-trash-alt"></i>
+                                        </button>
+                                    <?php endif; ?>
+                                </div>
+                                <?php endif;?>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+            </div>
             <div class="form-group">
                 <div class="custom-control custom-checkbox">
                     <input class="custom-control-input" type="checkbox" id="status" name="status"
@@ -80,6 +106,25 @@
 
 </div>
 <!-- /.card -->
+
+<script>
+    function popupPhoto() {
+        CKFinder.popup({
+            chooseFiles: true,
+            onInit: function (finder) {
+                finder.on('files:choose', function (evt) {
+                    var file = evt.data.files.first();
+                    const baseImgOutput = document.getElementById('base-img-output');
+                    baseImgOutput.innerHTML = '<div class="item-img-upload"><img src="' + file.getUrl() + '"><input type="hidden" name="photo" value="' + file.getUrl() + '"><button class="del-img btn btn-app bg-danger"><i class="far fa-trash-alt"></i></button></div>';
+                });
+                finder.on('file:choose:resizedImage', function (evt) {
+                    const baseImgOutput = document.getElementById('base-img-output');
+                    baseImgOutput.innerHTML = '<div class="item-img-upload"><img src="' + evt.data.resizedUrl + '"><input type="hidden" name="photo" value="' + evt.data.resizedUrl + '"><button class="del-img btn btn-app bg-danger"><i class="far fa-trash-alt"></i></button></div>';
+                });
+            }
+        });
+    }
+</script>
 
 <script>
     window.editors = {};

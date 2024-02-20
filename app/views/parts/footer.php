@@ -4,6 +4,35 @@ use wfm\View;
 
 /** @var $this View */
 ?>
+<hr>
+<section class="services">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-4">
+                <div class="service-item text-center">
+                    <p class="text-center"><i class="fas fa-book"></i></p>
+                    <p><?php __('tpl_get_a_book');?></p>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="service-item text-center">
+                    <p class="text-center"><i class="fas fa-book-open"></i></p>
+                    <p><?php __('tpl_open_the_book');?></p>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="service-item text-center">
+                    <p class="text-center"><i class="fas fa-book-reader"></i></p>
+                    <p><?php __('tpl_read_the_book');?></p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
 <footer>
     <section class="footer">
         <div class="container">
@@ -30,12 +59,6 @@ use wfm\View;
                 <div class="col-md-3 col-6">
                     <h4><?php __('tpl_contacts'); ?></h4>
                     <a href="<?=(base_url().'contact/feedback');?>"><?php __('tpl_feedback');?></a>
-                    <hr>
-                    <ul class="list-unstyled">
-                        <li><a href="tel:123456">123456</a></li>
-                        <li><a href="tel:123456">123456</a></li>
-                        <li><a href="tel:123456">123456</a></li>
-                    </ul>
                 </div>
 
                 <div class="col-md-3 col-6">

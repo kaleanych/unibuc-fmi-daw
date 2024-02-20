@@ -61,5 +61,4 @@ class Author extends AppModel
     {
         return R::getRow("SELECT a.*, ad.* FROM authors a JOIN author_descriptions ad on a.id = ad.author_id WHERE a.slug = ? AND ad.language_id = ? AND a.status=1", [$slug, $lang['id']]);
     }
-
 }

@@ -4,6 +4,7 @@
 namespace app\controllers\admin;
 
 
+use app\models\admin\Author;
 use app\models\admin\Category;
 use app\models\admin\Item;
 use RedBeanPHP\R;
@@ -57,12 +58,13 @@ class ItemController extends AppController
             redirect();
         }
         $categories = Category::getCategories();
+        $authors = Author::getAllAuthors();
 
         $item = $this->model->getEmptyItem();
 
         $title = 'New item';
         $this->setMeta("Admin :: {$title}");
-        $this->set(compact('title', 'item', 'categories'));
+        $this->set(compact('title', 'item', 'categories', 'authors'));
     }
 
     public function editAction()
@@ -88,11 +90,11 @@ class ItemController extends AppController
 
         $gallery = $this->model->getGallery($id);
         $categories = Category::getCategories();
+        $authors = Author::getAllAuthors();
 
-        $lang = App::$app->getProperty('language')['id'];
         $title = 'Edit item';
         $this->setMeta("Admin :: {$title}");
-        $this->set(compact('title', 'item', 'gallery', 'categories'));
+        $this->set(compact('title', 'item', 'gallery', 'categories', 'authors'));
     }
 
     public function getDownloadAction()

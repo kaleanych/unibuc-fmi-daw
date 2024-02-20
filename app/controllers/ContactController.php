@@ -28,7 +28,7 @@ class ContactController extends AppController
             if (!$this->model->validate($this->model->attributes) || !$responseKeys["success"]) {
                 $this->model->getErrors();
                 if (!$responseKeys["success"]) {
-                    $_SESSION['errors'] .= '<ul><li>You are not a human!</li></ul>';
+                    $_SESSION['errors'] .= '<ul class="m-0"><li>You are not a human!</li></ul>';
                 }
                 $_SESSION['form_data'] = $this->model->attributes;
             } else {
