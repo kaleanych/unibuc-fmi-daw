@@ -64,4 +64,10 @@ class Cart extends AppModel
         }
     }
 
+    public static function clearSession() {
+        unset($_SESSION['cart']);
+        unset($_SESSION['cart.qty']);
+        unset($_SESSION['cart.sum']);
+    }
+
 }

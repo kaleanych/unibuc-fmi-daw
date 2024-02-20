@@ -72,4 +72,7 @@ class Wishlist extends AppModel
         return false;
     }
 
+    public static function clearSession() {
+        setcookie('wishlist', '', time() - 3600, '/');
+    }
 }

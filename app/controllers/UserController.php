@@ -3,7 +3,9 @@
 
 namespace app\controllers;
 
+use app\models\Cart;
 use app\models\User;
+use app\models\Wishlist;
 use wfm\App;
 use wfm\Pagination;
 
@@ -138,6 +140,8 @@ class UserController extends AppController
     {
         if (User::checkAuth()) {
             unset($_SESSION['user']);
+            Cart::clearSession();
+            Wishlist::clearSession();
         }
         redirect(base_url() . 'user/login');
     }
